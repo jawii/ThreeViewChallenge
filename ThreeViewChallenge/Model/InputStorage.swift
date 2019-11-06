@@ -37,10 +37,12 @@ class InputStorage {
 		} else {
 			self.inputData = InputData(inputs: Array.init(repeating: [nil, nil], count: 2), lastEditedIndex: nil)
 		}
+		print("Loading values: \(inputData.inputs)")
 	}
 
 	/// Save current inputData to userdefaults
 	private func saveValues() {
+		print("Saving values: \(inputData.inputs)")
 		let encoder = JSONEncoder()
 		let data = try! encoder.encode(self.inputData)
 		UserDefaults.standard.set(data, forKey: InputStorage.inputKey)

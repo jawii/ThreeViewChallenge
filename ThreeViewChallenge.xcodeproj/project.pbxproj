@@ -21,6 +21,7 @@
 		55E830B9237338B50063054C /* ThreeViewChallengeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E830B8237338B50063054C /* ThreeViewChallengeTests.swift */; };
 		55E830C123733B9A0063054C /* InputViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E830C023733B9A0063054C /* InputViewTests.swift */; };
 		55E830C423733F940063054C /* InputStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E830C323733F940063054C /* InputStorage.swift */; };
+		55E830C72373650C0063054C /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E830C62373650C0063054C /* Device.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		55E830BA237338B50063054C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		55E830C023733B9A0063054C /* InputViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputViewTests.swift; sourceTree = "<group>"; };
 		55E830C323733F940063054C /* InputStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputStorage.swift; sourceTree = "<group>"; };
+		55E830C62373650C0063054C /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 				55E8306E237316FF0063054C /* Controller */,
 				55E830AD23732C6E0063054C /* Views */,
 				55E830C223733F820063054C /* Model */,
+				55E830C5237364F90063054C /* Utilities */,
 				55E830612373155A0063054C /* Protocols */,
 				55E83053237313FD0063054C /* Main.storyboard */,
 				55E83056237313FF0063054C /* Assets.xcassets */,
@@ -150,6 +153,14 @@
 				55E830C323733F940063054C /* InputStorage.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		55E830C5237364F90063054C /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				55E830C62373650C0063054C /* Device.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -262,6 +273,7 @@
 				55E830AF23732C830063054C /* InputView.swift in Sources */,
 				55E83050237313FD0063054C /* SceneDelegate.swift in Sources */,
 				55E830642373155A0063054C /* StoryBoarded.swift in Sources */,
+				55E830C72373650C0063054C /* Device.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

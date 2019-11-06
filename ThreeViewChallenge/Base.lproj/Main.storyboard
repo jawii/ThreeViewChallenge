@@ -26,16 +26,22 @@
                     <rect key="frame" x="0.0" y="0.0" width="420" height="50"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6cV-Y9-89v">
-                            <rect key="frame" x="356" y="10" width="44" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="Select"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6cV-Y9-89v">
+                            <rect key="frame" x="180" y="10" width="60" height="30"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                            <state key="normal" title="Confirm">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
                             <connections>
                                 <action selector="toolBarDoneTapHandler" destination="Lf0-Oi-eS7" eventType="touchUpInside" id="HBh-zb-R6W"/>
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="6cV-Y9-89v" firstAttribute="centerX" secondItem="XUS-f1-s33" secondAttribute="centerX" id="8pj-Of-xY3"/>
+                        <constraint firstItem="6cV-Y9-89v" firstAttribute="centerY" secondItem="XUS-f1-s33" secondAttribute="centerY" id="fg3-11-bs4"/>
+                    </constraints>
                     <viewLayoutGuide key="safeArea" id="mGO-i1-BhH"/>
                 </view>
             </objects>

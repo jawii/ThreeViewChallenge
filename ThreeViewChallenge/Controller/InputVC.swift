@@ -15,29 +15,17 @@ class InputVC: UIViewController, Storyboarded {
 
 	// MARK: - Properties
 	var inputIndex: Int!
-	var values: [Double?] = [] {
-		didSet {
-			if let firstValue = values[0]  {
-				firstInputView.setTextFieldValue(String(firstValue))
-			}
-			if let secondValue = values[1] {
-				secondInputView.setTextFieldValue(String(secondValue))
-			}
-		}
-	}
 	var coordinator: InputCoordinator?
 
 	lazy private var firstInputView: InputView = {
 		let inputView = InputView(withText: "1", toolBarView: toolBarView)
 		inputView.translatesAutoresizingMaskIntoConstraints = false
-		self.view.addSubview(inputView)
 		return inputView
 	}()
 
 	lazy private var secondInputView: InputView = {
 		let inputView = InputView(withText: "2", toolBarView: toolBarView)
 		inputView.translatesAutoresizingMaskIntoConstraints = false
-		self.view.addSubview(inputView)
 		return inputView
 	}()
 
@@ -47,20 +35,20 @@ class InputVC: UIViewController, Storyboarded {
 
 		let stack = UIStackView(frame: .zero)
 		stack.translatesAutoresizingMaskIntoConstraints = false
-		stack.axis = .horizontal
-		stack.distribution = .fillEqually
+		stack.axis = .vertical
+		stack.distribution = .fill
 		stack.spacing = 20
 
 		self.view.addSubview(stack)
 		stack.addArrangedSubview(firstInputView)
 		stack.addArrangedSubview(secondInputView)
 
+		let margins = self.view.layoutMarginsGuide // safe area
 		NSLayoutConstraint.activate([
-			stack.topAnchor.constraint(equalTo: self.view.layoutMarginsGuide.topAnchor, constant: 20),
-			stack.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-			stack.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
-			stack.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
-			stack.heightAnchor.constraint(equalToConstant: 100)
+			stack.topAnchor.constraint(equalTo: margins.topAnchor, constant: 20),
+			stack.centerXAnchor.constraint(equalTo: margins.centerXAnchor),
+			stack.trailingAnchor.constraint(equalTo: margins.trailingAnchor, constant: -20),
+			stack.leadingAnchor.constraint(equalTo: margins.leadingAnchor, constant: 20)
 		])
 	}
 
@@ -68,13 +56,23 @@ class InputVC: UIViewController, Storyboarded {
         super.viewDidLoad()
     }
 
-	@IBAction private func toolBarDoneTapHandler() {
-		print("ToolbarTap")
-		// Get which inputviews is being edited
-		let currentInputView = secondInputView.isEditing() ? secondInputView : firstInputView
+	// MARK: - IBActions
 
+	@IBAction private func toolBarDoneTapHandler() {
+		// Set new values and end editing
 		coordinator?.didSetInput(values: [firstInputView.getNewValue(), secondInputView.getNewValue()], atIndex: inputIndex)
-		currentInputView.endEditing(true)
+		view.endEditing(true)
+	}
+
+	// MARK: - Public Methods
+	
+	func setValues(values: [Double?]) {
+		if let firstValue = values[0]  {
+			firstInputView.setTextFieldValue(String(firstValue))
+		}
+		if let secondValue = values[1] {
+			secondInputView.setTextFieldValue(String(secondValue))
+		}
 	}
 }
 

@@ -17,27 +17,15 @@ class MainTabBarController: UITabBarController, InputCoordinator {
 
 	// MARK: - Properties
 	private var storage = InputStorage()
-
-	lazy var firstVC: InputVC = {
-		let firstVC = InputVC.makeInputVCForTabBar(inputIndex: 0)
-		firstVC.coordinator = self
-		return firstVC
-	}()
-
-	lazy var secondVC: InputVC = {
-		let secondVC = InputVC.makeInputVCForTabBar(inputIndex: 1)
-		secondVC.coordinator = self
-		return secondVC
-	}()
+	var firstVC: InputVC!
+	var secondVC: InputVC!
 
 	lazy var resultVC: ResultVC = {
 		let resultVC = ResultVC.instantiate()
-
 		resultVC.title = "Result"
 		let tabBarIcon = UIImage(systemName: "tray")
 		let tabBarIconSelected = UIImage(systemName: "tray.fill")
 		resultVC.tabBarItem = UITabBarItem(title: "Result", image: tabBarIcon, selectedImage: tabBarIconSelected)
-
 		return resultVC
 	}()
 
@@ -47,9 +35,13 @@ class MainTabBarController: UITabBarController, InputCoordinator {
         super.viewDidLoad()
 		// Set viewcontrollers inside navigationcontroller for the title and future
 		let firstNav = UINavigationController()
+		firstVC = InputVC.makeInputVCForTabBar(inputIndex: 0)
+		firstVC.coordinator = self
 		firstNav.viewControllers = [firstVC]
-
+		
 		let secondNav = UINavigationController()
+		secondVC = InputVC.makeInputVCForTabBar(inputIndex: 1)
+		secondVC.coordinator = self
 		secondNav.viewControllers = [secondVC]
 
 		let resultNav = UINavigationController()
@@ -57,8 +49,8 @@ class MainTabBarController: UITabBarController, InputCoordinator {
 
 		viewControllers = [firstNav, secondNav, resultNav]
 
-		firstVC.values = storage.getValues(forInputIndex: 0)
-		secondVC.values = storage.getValues(forInputIndex: 1)
+		firstVC.setValues(values: storage.getValues(forInputIndex: 0))
+		secondVC.setValues(values: storage.getValues(forInputIndex: 1))
 		resultVC.inputData = storage.inputData
 	}
 

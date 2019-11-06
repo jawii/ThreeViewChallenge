@@ -15,10 +15,11 @@ class InputView: UIView {
 
 	lazy private var infoLabel: UILabel = {
 		let infoLabel = UILabel(frame: .zero)
-		infoLabel.backgroundColor = UIColor.red
+
 		infoLabel.translatesAutoresizingMaskIntoConstraints = false
 		infoLabel.textAlignment = .center
 		infoLabel.text = "Input"
+
 		addSubview(infoLabel)
 		return infoLabel
 	}()
@@ -34,8 +35,15 @@ class InputView: UIView {
 		textField.placeholder = "Tap to set"
 
 		addSubview(textField)
-
 		return textField
+	}()
+
+	lazy private var contentStack: UIStackView = {
+		let stack = UIStackView(frame: .zero)
+		stack.translatesAutoresizingMaskIntoConstraints = false
+		stack.axis = .vertical
+		self.addSubview(stack)
+		return stack
 	}()
 
 	private var toolBarView: UIView! {
@@ -48,29 +56,34 @@ class InputView: UIView {
 	required init(withText infoText: String, toolBarView: UIView) {
 		super.init(frame: .zero)
 
-		let stack = UIStackView(frame: .zero)
-		stack.translatesAutoresizingMaskIntoConstraints = false
-		stack.axis = .vertical
-
-		self.addSubview(stack)
-		stack.addArrangedSubview(infoLabel)
-		stack.addArrangedSubview(textField)
+		contentStack.addArrangedSubview(infoLabel)
+		contentStack.addArrangedSubview(textField)
 
 		NSLayoutConstraint.activate([
-			stack.widthAnchor.constraint(equalTo: self.widthAnchor),
-			stack.heightAnchor.constraint(equalTo: self.heightAnchor),
-			stack.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-			stack.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+			contentStack.widthAnchor.constraint(equalTo: self.widthAnchor),
+			contentStack.heightAnchor.constraint(equalTo: self.heightAnchor),
+			contentStack.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+			contentStack.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+			textField.heightAnchor.constraint(greaterThanOrEqualToConstant: 44)
 		])
+		
 		// Let the textfield take the space
 		infoLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
-		infoLabel.text = infoText
+		infoLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
 
+		infoLabel.text = infoText
 		textField.inputAccessoryView = toolBarView
 	}
 	
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
+	}
+
+	override func layoutSubviews() {
+		super.layoutSubviews()
+		let isLandscape = Device.isLandscape
+		contentStack.axis = isLandscape ? .horizontal : .vertical
+		contentStack.spacing = isLandscape ? 50 : 20
 	}
 
 	// MARK: - Public methods
@@ -87,6 +100,7 @@ class InputView: UIView {
 	}
 
 	func setTextFieldValue(_ value: String) {
+		print("Setting value: \(value)")
 		textField.text = value
 	}
 }
