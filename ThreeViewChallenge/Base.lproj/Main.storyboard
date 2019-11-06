@@ -41,10 +41,10 @@
             </objects>
             <point key="canvasLocation" x="-1589" y="108"/>
         </scene>
-        <!--OutputVC-->
+        <!--ResultVC-->
         <scene sceneID="d7y-1Y-knL">
             <objects>
-                <viewController storyboardIdentifier="OutputVC" id="7Ca-fV-k7Z" customClass="OutputVC" customModule="ThreeViewChallenge" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ResultVC" id="7Ca-fV-k7Z" customClass="ResultVC" customModule="ThreeViewChallenge" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZQm-8d-E20">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

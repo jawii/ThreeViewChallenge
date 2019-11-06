@@ -10,6 +10,7 @@ import Foundation
 
 struct InputData: Codable {
 	var inputs: [[Double?]]
+	var lastEditedIndex: Int?
 }
 
 class InputStorage {
@@ -17,40 +18,44 @@ class InputStorage {
 	private static let inputKey = "threeviewchallenge.inputs"
 
 	// MARK: - Properties
-	var inputs: InputData!
+	var inputData: InputData!
 
 	// MARK: - Initialization
 	init() {
-		loadInputs()
+		loadSavedData()
 	}
 
-
 	// MARK: - Private methods
-	private func loadInputs() {
+
+	/// Loads saved data
+	/// If no data saved. Set empty inputs
+	private func loadSavedData() {
 		let decoder = JSONDecoder()
 		if let savedData = UserDefaults.standard.data(forKey: InputStorage.inputKey),
 			let savedValue = try? decoder.decode(InputData.self, from: savedData) {
-			self.inputs = savedValue
+			self.inputData = savedValue
 		} else {
-			self.inputs = InputData(inputs: Array.init(repeating: [nil, nil], count: 2))
+			self.inputData = InputData(inputs: Array.init(repeating: [nil, nil], count: 2), lastEditedIndex: nil)
 		}
 	}
 
+	/// Save current inputData to userdefaults
 	private func saveValues() {
 		let encoder = JSONEncoder()
-		let data = try! encoder.encode(self.inputs)
+		let data = try! encoder.encode(self.inputData)
 		UserDefaults.standard.set(data, forKey: InputStorage.inputKey)
 	}
 
 	// MARK: - Public Methods
 
 	func getValues(forInputIndex index: Int) -> [Double?] {
-//		guard inputs.count > index else { return [] }
-		return inputs.inputs[index]
+		assert(inputData.inputs.count > index, "Array index overflow")
+		return inputData.inputs[index]
 	}
 
 	func setValues(_ values: [Double?], forIndex index: Int) {
-		inputs.inputs[index] = values
+		inputData.inputs[index] = values
+		inputData.lastEditedIndex = index
 		saveValues()
 	}
 }

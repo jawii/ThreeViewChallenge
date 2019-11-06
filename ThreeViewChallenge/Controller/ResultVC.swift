@@ -8,11 +8,11 @@
 
 import UIKit
 
-class OutputVC: UIViewController, Storyboarded {
+class ResultVC: UIViewController, Storyboarded {
 
 	@IBOutlet private var valuesLabels: [UILabel]!
 
-	var values: [[Double?]]!
+	var inputData: InputData!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,7 +20,9 @@ class OutputVC: UIViewController, Storyboarded {
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		let flattenedValues = values.reduce([], +)
+		debugPrint("Last edited: \(inputData.lastEditedIndex)")
+		
+		let flattenedValues = inputData.inputs.reduce([], +)
 
 		for (index, label) in valuesLabels.enumerated() {
 			if let value = flattenedValues[index] {

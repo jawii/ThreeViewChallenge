@@ -25,10 +25,14 @@ class InputView: UIView {
 
 	lazy private var textField: UITextField = {
 		let textField = UITextField(frame: .zero)
-		textField.backgroundColor = UIColor.yellow
+		textField.translatesAutoresizingMaskIntoConstraints = false
+
+		textField.backgroundColor = UIColor.systemFill
+		textField.layer.cornerRadius = 8 
 		textField.keyboardType = .decimalPad
 		textField.textAlignment = .center
-		textField.translatesAutoresizingMaskIntoConstraints = false
+		textField.placeholder = "Tap to set"
+
 		addSubview(textField)
 
 		return textField
@@ -64,28 +68,6 @@ class InputView: UIView {
 
 		textField.inputAccessoryView = toolBarView
 	}
-/*
-	override init(frame: CGRect) {
-		super.init(frame: frame)
-
-		let stack = UIStackView(frame: .zero)
-		stack.translatesAutoresizingMaskIntoConstraints = false
-		stack.axis = .vertical
-
-		self.addSubview(stack)
-		stack.addArrangedSubview(infoLabel)
-		stack.addArrangedSubview(textField)
-
-		NSLayoutConstraint.activate([
-			stack.widthAnchor.constraint(equalTo: self.widthAnchor),
-			stack.heightAnchor.constraint(equalTo: self.heightAnchor),
-			stack.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-			stack.centerYAnchor.constraint(equalTo: self.centerYAnchor)
-		])
-		// Let the textfield take the space
-		infoLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
-	}
-*/
 	
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")

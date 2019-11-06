@@ -56,7 +56,7 @@ class InputVC: UIViewController, Storyboarded {
 		stack.addArrangedSubview(secondInputView)
 
 		NSLayoutConstraint.activate([
-			stack.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 100),
+			stack.topAnchor.constraint(equalTo: self.view.layoutMarginsGuide.topAnchor, constant: 20),
 			stack.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
 			stack.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
 			stack.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
@@ -73,10 +73,22 @@ class InputVC: UIViewController, Storyboarded {
 		// Get which inputviews is being edited
 		let currentInputView = secondInputView.isEditing() ? secondInputView : firstInputView
 
-//		let number = currentInputView.getNewValue()
-		currentInputView.endEditing(true)
-		//			currentInputView.setTextFieldValue(value)
 		coordinator?.didSetInput(values: [firstInputView.getNewValue(), secondInputView.getNewValue()], atIndex: inputIndex)
+		currentInputView.endEditing(true)
+	}
+}
 
+
+extension InputVC {
+	static func makeInputVCForTabBar(inputIndex: Int) -> InputVC {
+		let inputVC = InputVC.instantiate()
+		inputVC.inputIndex = inputIndex
+		inputVC.title = "INPUT \(inputIndex + 1)"
+
+		let tabBarIcon = UIImage(systemName: "\(inputIndex + 1).circle.fill")
+		let tabBarIconSelected = UIImage(systemName: "\(inputIndex + 1).circle")
+		inputVC.tabBarItem = UITabBarItem(title: "Input", image: tabBarIcon, selectedImage: tabBarIconSelected)
+
+		return inputVC
 	}
 }

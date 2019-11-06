@@ -14,58 +14,60 @@ protocol InputCoordinator {
 }
 
 class MainTabBarController: UITabBarController, InputCoordinator {
-	// MARK: - Properties
 
+	// MARK: - Properties
 	private var storage = InputStorage()
 
 	lazy var firstVC: InputVC = {
-		let firstVC = InputVC.instantiate()
-		firstVC.view.backgroundColor = UIColor.systemBlue
-
-		let tabBarIcon = UIImage(systemName: "1.circle.fill")
-		let tabBarIconSelected = UIImage(systemName: "1.circle")
-		firstVC.tabBarItem = UITabBarItem(title: "Input", image: tabBarIcon, selectedImage: tabBarIconSelected)
-
+		let firstVC = InputVC.makeInputVCForTabBar(inputIndex: 0)
 		firstVC.coordinator = self
 		return firstVC
 	}()
 
 	lazy var secondVC: InputVC = {
-		let secondVC = InputVC.instantiate()
-		secondVC.view.backgroundColor = UIColor.systemRed
-
-		let tabBarIcon = UIImage(systemName: "2.circle.fill")
-		let tabBarIconSelected = UIImage(systemName: "2.circle")
-		secondVC.tabBarItem = UITabBarItem(title: "Input", image: tabBarIcon, selectedImage: tabBarIconSelected)
-
+		let secondVC = InputVC.makeInputVCForTabBar(inputIndex: 1)
 		secondVC.coordinator = self
 		return secondVC
 	}()
 
-	lazy var outPutVC: OutputVC = {
-		let thirdVC = OutputVC.instantiate()
+	lazy var resultVC: ResultVC = {
+		let resultVC = ResultVC.instantiate()
+
+		resultVC.title = "Result"
 		let tabBarIcon = UIImage(systemName: "tray")
 		let tabBarIconSelected = UIImage(systemName: "tray.fill")
-		thirdVC.tabBarItem = UITabBarItem(title: "Output", image: tabBarIcon, selectedImage: tabBarIconSelected)
+		resultVC.tabBarItem = UITabBarItem(title: "Result", image: tabBarIcon, selectedImage: tabBarIconSelected)
 
-		return thirdVC
+		return resultVC
 	}()
+
+	// MARK: - Initialization
 
     override func viewDidLoad() {
         super.viewDidLoad()
-		viewControllers = [firstVC, secondVC, outPutVC]
+		// Set viewcontrollers inside navigationcontroller for the title and future
+		let firstNav = UINavigationController()
+		firstNav.viewControllers = [firstVC]
 
-		firstVC.inputIndex = 0
+		let secondNav = UINavigationController()
+		secondNav.viewControllers = [secondVC]
+
+		let resultNav = UINavigationController()
+		resultNav.viewControllers = [resultVC]
+
+		viewControllers = [firstNav, secondNav, resultNav]
+
 		firstVC.values = storage.getValues(forInputIndex: 0)
-
-		secondVC.inputIndex = 1
 		secondVC.values = storage.getValues(forInputIndex: 1)
-
-		outPutVC.values = storage.inputs.inputs
+		resultVC.inputData = storage.inputData
 	}
 
+	// MARK: - InputCoordinator - protocol
+
 	func didSetInput(values: [Double?], atIndex: Int) {
+		// Set new values to storage
 		storage.setValues(values, forIndex: atIndex)
-		outPutVC.values = storage.inputs.inputs
+		// Set new values to outputvc
+		resultVC.inputData = storage.inputData
 	}
 }
