@@ -22,7 +22,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		window = UIWindow(frame: windowScene.coordinateSpace.bounds)
 		window?.windowScene = windowScene
 
-		// Kick the app alive
 		self.window!.rootViewController = MainTabBarController()
 		self.window!.makeKeyAndVisible()
 	}

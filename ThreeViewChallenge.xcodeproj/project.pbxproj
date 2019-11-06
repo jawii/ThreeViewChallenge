@@ -15,9 +15,9 @@
 		55E830642373155A0063054C /* StoryBoarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E830622373155A0063054C /* StoryBoarded.swift */; };
 		55E830652373155A0063054C /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E830632373155A0063054C /* Coordinator.swift */; };
 		55E830672373159C0063054C /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E830662373159C0063054C /* MainTabBarController.swift */; };
-		55E83069237316B20063054C /* FirstVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E83068237316B20063054C /* FirstVC.swift */; };
-		55E8306B237316D30063054C /* SecondVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E8306A237316D30063054C /* SecondVC.swift */; };
 		55E8306D237316EC0063054C /* ThirdVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E8306C237316EC0063054C /* ThirdVC.swift */; };
+		55E8307023731F230063054C /* InputVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E8306F23731F230063054C /* InputVC.swift */; };
+		55E830AF23732C830063054C /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E830AE23732C830063054C /* InputView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,9 +31,9 @@
 		55E830622373155A0063054C /* StoryBoarded.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryBoarded.swift; sourceTree = "<group>"; };
 		55E830632373155A0063054C /* Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		55E830662373159C0063054C /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
-		55E83068237316B20063054C /* FirstVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstVC.swift; sourceTree = "<group>"; };
-		55E8306A237316D30063054C /* SecondVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondVC.swift; sourceTree = "<group>"; };
 		55E8306C237316EC0063054C /* ThirdVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdVC.swift; sourceTree = "<group>"; };
+		55E8306F23731F230063054C /* InputVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputVC.swift; sourceTree = "<group>"; };
+		55E830AE23732C830063054C /* InputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +70,7 @@
 				55E8304F237313FD0063054C /* SceneDelegate.swift */,
 				55E830662373159C0063054C /* MainTabBarController.swift */,
 				55E8306E237316FF0063054C /* Controller */,
+				55E830AD23732C6E0063054C /* Views */,
 				55E830612373155A0063054C /* Protocols */,
 				55E83053237313FD0063054C /* Main.storyboard */,
 				55E83056237313FF0063054C /* Assets.xcassets */,
@@ -91,11 +92,18 @@
 		55E8306E237316FF0063054C /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				55E83068237316B20063054C /* FirstVC.swift */,
-				55E8306A237316D30063054C /* SecondVC.swift */,
+				55E8306F23731F230063054C /* InputVC.swift */,
 				55E8306C237316EC0063054C /* ThirdVC.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		55E830AD23732C6E0063054C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				55E830AE23732C830063054C /* InputView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -171,11 +179,11 @@
 			files = (
 				55E8306D237316EC0063054C /* ThirdVC.swift in Sources */,
 				55E8304E237313FD0063054C /* AppDelegate.swift in Sources */,
+				55E8307023731F230063054C /* InputVC.swift in Sources */,
 				55E830672373159C0063054C /* MainTabBarController.swift in Sources */,
-				55E83069237316B20063054C /* FirstVC.swift in Sources */,
 				55E830652373155A0063054C /* Coordinator.swift in Sources */,
+				55E830AF23732C830063054C /* InputView.swift in Sources */,
 				55E83050237313FD0063054C /* SceneDelegate.swift in Sources */,
-				55E8306B237316D30063054C /* SecondVC.swift in Sources */,
 				55E830642373155A0063054C /* StoryBoarded.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

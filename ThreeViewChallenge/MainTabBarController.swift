@@ -12,17 +12,42 @@ import UIKit
 class MainTabBarController: UITabBarController {
 
 	// MARK: - Properties
-	let firstVC = FirstVC.instantiate()
-	let secondVC = SecondVC.instantiate()
-	let thirdVC = ThirdVC.instantiate()
+	lazy var firstVC: InputVC = {
+		let firstVC = InputVC.instantiate()
+		firstVC.view.backgroundColor = UIColor.systemBlue
+
+		let tabBarIcon = UIImage(systemName: "flame")
+		let tabBarIconSelected = UIImage(systemName: "flame.fill")
+		firstVC.tabBarItem = UITabBarItem(title: "1", image: tabBarIcon, selectedImage: tabBarIconSelected)
+
+		return firstVC
+	}()
+
+	lazy var secondVC: InputVC = {
+		let secondVC = InputVC.instantiate()
+		secondVC.view.backgroundColor = UIColor.systemRed
+
+		let tabBarIcon = UIImage(systemName: "heart")
+		let tabBarIconSelected = UIImage(systemName: "heart.fill")
+		secondVC.tabBarItem = UITabBarItem(title: "2", image: tabBarIcon, selectedImage: tabBarIconSelected)
+
+		return secondVC
+	}()
+
+	lazy var thirdVC: ThirdVC = {
+		let thirdVC = ThirdVC.instantiate()
+
+		let tabBarIcon = UIImage(systemName: "tray")
+		let tabBarIconSelected = UIImage(systemName: "tray.fill")
+		thirdVC.tabBarItem = UITabBarItem(title: "3", image: tabBarIcon, selectedImage: tabBarIconSelected)
+
+		return thirdVC
+	}()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
 		viewControllers = [firstVC, secondVC, thirdVC]
 
-		firstVC.tabBarItem = UITabBarItem(tabBarSystemItem: .downloads, tag: 0)
-		secondVC.tabBarItem = UITabBarItem(tabBarSystemItem: .history, tag: 1)
-		thirdVC.tabBarItem = UITabBarItem(tabBarSystemItem: .mostRecent, tag: 2)
 	}
 }
