@@ -9,17 +9,24 @@
 
 import UIKit
 
-class MainTabBarController: UITabBarController {
+protocol InputCoordinator {
+	func didSetInput(values: [Double?], atIndex index: Int)
+}
 
+class MainTabBarController: UITabBarController, InputCoordinator {
 	// MARK: - Properties
+
+	private var storage = InputStorage()
+
 	lazy var firstVC: InputVC = {
 		let firstVC = InputVC.instantiate()
 		firstVC.view.backgroundColor = UIColor.systemBlue
 
-		let tabBarIcon = UIImage(systemName: "flame")
-		let tabBarIconSelected = UIImage(systemName: "flame.fill")
-		firstVC.tabBarItem = UITabBarItem(title: "1", image: tabBarIcon, selectedImage: tabBarIconSelected)
+		let tabBarIcon = UIImage(systemName: "1.circle.fill")
+		let tabBarIconSelected = UIImage(systemName: "1.circle")
+		firstVC.tabBarItem = UITabBarItem(title: "Input", image: tabBarIcon, selectedImage: tabBarIconSelected)
 
+		firstVC.coordinator = self
 		return firstVC
 	}()
 
@@ -27,27 +34,38 @@ class MainTabBarController: UITabBarController {
 		let secondVC = InputVC.instantiate()
 		secondVC.view.backgroundColor = UIColor.systemRed
 
-		let tabBarIcon = UIImage(systemName: "heart")
-		let tabBarIconSelected = UIImage(systemName: "heart.fill")
-		secondVC.tabBarItem = UITabBarItem(title: "2", image: tabBarIcon, selectedImage: tabBarIconSelected)
+		let tabBarIcon = UIImage(systemName: "2.circle.fill")
+		let tabBarIconSelected = UIImage(systemName: "2.circle")
+		secondVC.tabBarItem = UITabBarItem(title: "Input", image: tabBarIcon, selectedImage: tabBarIconSelected)
 
+		secondVC.coordinator = self
 		return secondVC
 	}()
 
-	lazy var thirdVC: ThirdVC = {
-		let thirdVC = ThirdVC.instantiate()
-
+	lazy var outPutVC: OutputVC = {
+		let thirdVC = OutputVC.instantiate()
 		let tabBarIcon = UIImage(systemName: "tray")
 		let tabBarIconSelected = UIImage(systemName: "tray.fill")
-		thirdVC.tabBarItem = UITabBarItem(title: "3", image: tabBarIcon, selectedImage: tabBarIconSelected)
+		thirdVC.tabBarItem = UITabBarItem(title: "Output", image: tabBarIcon, selectedImage: tabBarIconSelected)
 
 		return thirdVC
 	}()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+		viewControllers = [firstVC, secondVC, outPutVC]
 
-		viewControllers = [firstVC, secondVC, thirdVC]
+		firstVC.inputIndex = 0
+		firstVC.values = storage.getValues(forInputIndex: 0)
 
+		secondVC.inputIndex = 1
+		secondVC.values = storage.getValues(forInputIndex: 1)
+
+		outPutVC.values = storage.inputs.inputs
+	}
+
+	func didSetInput(values: [Double?], atIndex: Int) {
+		storage.setValues(values, forIndex: atIndex)
+		outPutVC.values = storage.inputs.inputs
 	}
 }
