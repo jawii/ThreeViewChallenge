@@ -19,7 +19,8 @@ class ResultVC: UIViewController, Storyboarded {
 	}
 	@IBOutlet var resultLabel: UILabel! {
 		didSet {
-			infoLabel.font = DynamicFonts.scaledBoldFont
+			resultLabel.font = DynamicFonts.scaledBoldFont
+			resultLabel.accessibilityIdentifier = "result label"
 		}
 	}
 
@@ -27,11 +28,12 @@ class ResultVC: UIViewController, Storyboarded {
 
 	var inputData: InputData!
 
-
+	
 	// MARK: - VC Life Cycle Methods
 
     override func viewDidLoad() {
         super.viewDidLoad()
+		view.accessibilityIdentifier = "result view"
     }
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -43,7 +45,6 @@ class ResultVC: UIViewController, Storyboarded {
 	// MARK: - Private functions
 
 	private func setViewForInputData() {
-		print(inputData.inputs)
 		resultLabel.isHidden = false
 		resultLabel.text = ""
 		infoLabel.text = ""
@@ -55,17 +56,13 @@ class ResultVC: UIViewController, Storyboarded {
 			return
 		}
 
-		let values = inputData.inputs[inputData.lastEditedIndex!]
 		infoLabel.text = "Inputs from \(inputData.lastEditedIndex! + 1)"
-
-		// Check if other one is missing
-		if values.count != (values.compactMap {$0}).count {
+		if !inputData.hasCompleteData {
 			resultLabel.text = "Incomplete values."
 			return
 		}
 
 		// Now there is input and result can be calculated
-		let product = values.compactMap { $0 }.reduce(1, *)
-		resultLabel.text = "\(values[0]!) × \(values[1]!) =  \(product)"
+		resultLabel.text = inputData.resultString
 	}
 }

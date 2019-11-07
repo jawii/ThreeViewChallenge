@@ -11,16 +11,19 @@ import Foundation
 
 class InputStorage {
 
-	private static let inputKey = "threeviewchallenge.inputs"
+	private static let input_userdefaults_key = "threeviewchallenge.inputs"
 
 	// MARK: - Properties
 
 	var inputData: InputData!
 
-	
+
+	// MARK: - Initalization
+
 	init() {
 		loadSavedData()
 	}
+
 
 	// MARK: - Private methods
 
@@ -29,12 +32,11 @@ class InputStorage {
 	private func loadSavedData() {
 
 		let decoder = JSONDecoder()
-		if let savedData = UserDefaults.standard.data(forKey: InputStorage.inputKey),
+		if let savedData = UserDefaults.standard.data(forKey: InputStorage.input_userdefaults_key),
 			let savedValue = try? decoder.decode(InputData.self, from: savedData) {
 			self.inputData = savedValue
 		} else {
-			let emptyInputs: [[Double?]] = Array.init(repeating: [nil, nil], count: 2)
-			self.inputData = InputData(inputs: emptyInputs, lastEditedIndex: nil)
+			self.inputData = InputData.makeEmptyInputData()
 		}
 	}
 
@@ -44,7 +46,7 @@ class InputStorage {
 		let encoder = JSONEncoder()
 		do {
 			let data = try encoder.encode(self.inputData)
-			UserDefaults.standard.set(data, forKey: InputStorage.inputKey)
+			UserDefaults.standard.set(data, forKey: InputStorage.input_userdefaults_key)
 		} catch let error {
 			assertionFailure("Failed to save the data. \(error.localizedDescription)")
 		}

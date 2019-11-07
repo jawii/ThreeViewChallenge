@@ -62,16 +62,15 @@ class InputVC: UIViewController, Storyboarded {
 
 	// MARK: - Private methods
 
-	@objc func dismissKeyboard() {
+	@objc private func dismissKeyboard() {
+		coordinator?.didSetInput(values: [firstInputView.getNewValue(), secondInputView.getNewValue()], atIndex: inputIndex)
 		view.endEditing(true)
 	}
 
 	// MARK: - IBActions
 
 	@IBAction private func toolBarDoneTapHandler() {
-		// Set new values and end editing
-		coordinator?.didSetInput(values: [firstInputView.getNewValue(), secondInputView.getNewValue()], atIndex: inputIndex)
-		view.endEditing(true)
+		dismissKeyboard()
 	}
 
 	// MARK: - Public Methods
@@ -91,7 +90,9 @@ extension InputVC {
 
 		let tabBarIcon = UIImage(systemName: "\(inputIndex + 1).circle.fill")
 		let tabBarIconSelected = UIImage(systemName: "\(inputIndex + 1).circle")
-		inputVC.tabBarItem = UITabBarItem(title: "Input", image: tabBarIcon, selectedImage: tabBarIconSelected)
+		inputVC.tabBarItem = UITabBarItem(title: "Input \(inputIndex + 1)", image: tabBarIcon, selectedImage: tabBarIconSelected)
+
+		inputVC.view.accessibilityIdentifier = "input \(inputIndex + 1)"
 
 		return inputVC
 	}

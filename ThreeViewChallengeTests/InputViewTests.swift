@@ -11,24 +11,27 @@ import XCTest
 
 class InputViewTests: XCTestCase {
 
-    override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
+	var sut: InputView!
+
+    override func setUp() {}
 
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        sut = nil
     }
 
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func test_inputview_noValueAtStart() {
+		sut = InputView(withText: "", toolBarView: UIView())
+
+		XCTAssertNil(sut.getNewValue())
     }
 
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
+	func test_inputview_returnsGivenValue() {
+		sut = InputView(withText: "", toolBarView: UIView())
 
+		sut.setTextFieldValue(20)
+		XCTAssert(sut.getNewValue() == 20)
+
+		sut.setTextFieldValue(nil)
+		XCTAssertNil(sut.getNewValue())
+    }
 }

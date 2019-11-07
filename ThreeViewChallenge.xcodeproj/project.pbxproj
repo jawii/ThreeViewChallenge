@@ -17,16 +17,23 @@
 		55E8306D237316EC0063054C /* ResultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E8306C237316EC0063054C /* ResultVC.swift */; };
 		55E8307023731F230063054C /* InputVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E8306F23731F230063054C /* InputVC.swift */; };
 		55E830AF23732C830063054C /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E830AE23732C830063054C /* InputView.swift */; };
-		55E830B9237338B50063054C /* ThreeViewChallengeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E830B8237338B50063054C /* ThreeViewChallengeTests.swift */; };
 		55E830C123733B9A0063054C /* InputViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E830C023733B9A0063054C /* InputViewTests.swift */; };
 		55E830C423733F940063054C /* InputStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E830C323733F940063054C /* InputStorage.swift */; };
-		55E830C72373650C0063054C /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E830C62373650C0063054C /* Device.swift */; };
 		55E830C92373E3D50063054C /* InputData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E830C82373E3D50063054C /* InputData.swift */; };
 		55E830CB2373E4670063054C /* DynamicFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E830CA2373E4670063054C /* DynamicFonts.swift */; };
+		55E830CD2373E6E50063054C /* InputDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E830CC2373E6E50063054C /* InputDataTests.swift */; };
+		55E830D52373F09F0063054C /* ThreeViewChallengeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E830D42373F09F0063054C /* ThreeViewChallengeUITests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		55E830BB237338B50063054C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 55E83042237313FD0063054C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 55E83049237313FD0063054C;
+			remoteInfo = ThreeViewChallenge;
+		};
+		55E830D72373F09F0063054C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 55E83042237313FD0063054C /* Project object */;
 			proxyType = 1;
@@ -49,13 +56,15 @@
 		55E8306F23731F230063054C /* InputVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputVC.swift; sourceTree = "<group>"; };
 		55E830AE23732C830063054C /* InputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputView.swift; sourceTree = "<group>"; };
 		55E830B6237338B50063054C /* ThreeViewChallengeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ThreeViewChallengeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		55E830B8237338B50063054C /* ThreeViewChallengeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeViewChallengeTests.swift; sourceTree = "<group>"; };
 		55E830BA237338B50063054C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		55E830C023733B9A0063054C /* InputViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputViewTests.swift; sourceTree = "<group>"; };
 		55E830C323733F940063054C /* InputStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputStorage.swift; sourceTree = "<group>"; };
-		55E830C62373650C0063054C /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		55E830C82373E3D50063054C /* InputData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputData.swift; sourceTree = "<group>"; };
 		55E830CA2373E4670063054C /* DynamicFonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicFonts.swift; sourceTree = "<group>"; };
+		55E830CC2373E6E50063054C /* InputDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputDataTests.swift; sourceTree = "<group>"; };
+		55E830D22373F09F0063054C /* ThreeViewChallengeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ThreeViewChallengeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		55E830D42373F09F0063054C /* ThreeViewChallengeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeViewChallengeUITests.swift; sourceTree = "<group>"; };
+		55E830D62373F09F0063054C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +82,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		55E830CF2373F09F0063054C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -81,6 +97,7 @@
 			children = (
 				55E8304C237313FD0063054C /* ThreeViewChallenge */,
 				55E830B7237338B50063054C /* ThreeViewChallengeTests */,
+				55E830D32373F09F0063054C /* ThreeViewChallengeUITests */,
 				55E8304B237313FD0063054C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -90,6 +107,7 @@
 			children = (
 				55E8304A237313FD0063054C /* ThreeViewChallenge.app */,
 				55E830B6237338B50063054C /* ThreeViewChallengeTests.xctest */,
+				55E830D22373F09F0063054C /* ThreeViewChallengeUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -142,7 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				55E830C023733B9A0063054C /* InputViewTests.swift */,
-				55E830B8237338B50063054C /* ThreeViewChallengeTests.swift */,
+				55E830CC2373E6E50063054C /* InputDataTests.swift */,
 				55E830BA237338B50063054C /* Info.plist */,
 			);
 			path = ThreeViewChallengeTests;
@@ -160,10 +178,18 @@
 		55E830C5237364F90063054C /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				55E830C62373650C0063054C /* Device.swift */,
 				55E830CA2373E4670063054C /* DynamicFonts.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		55E830D32373F09F0063054C /* ThreeViewChallengeUITests */ = {
+			isa = PBXGroup;
+			children = (
+				55E830D42373F09F0063054C /* ThreeViewChallengeUITests.swift */,
+				55E830D62373F09F0063054C /* Info.plist */,
+			);
+			path = ThreeViewChallengeUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -204,6 +230,24 @@
 			productReference = 55E830B6237338B50063054C /* ThreeViewChallengeTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		55E830D12373F09F0063054C /* ThreeViewChallengeUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 55E830D92373F09F0063054C /* Build configuration list for PBXNativeTarget "ThreeViewChallengeUITests" */;
+			buildPhases = (
+				55E830CE2373F09F0063054C /* Sources */,
+				55E830CF2373F09F0063054C /* Frameworks */,
+				55E830D02373F09F0063054C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				55E830D82373F09F0063054C /* PBXTargetDependency */,
+			);
+			name = ThreeViewChallengeUITests;
+			productName = ThreeViewChallengeUITests;
+			productReference = 55E830D22373F09F0063054C /* ThreeViewChallengeUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -218,6 +262,10 @@
 						CreatedOnToolsVersion = 11.2;
 					};
 					55E830B5237338B50063054C = {
+						CreatedOnToolsVersion = 11.2;
+						TestTargetID = 55E83049237313FD0063054C;
+					};
+					55E830D12373F09F0063054C = {
 						CreatedOnToolsVersion = 11.2;
 						TestTargetID = 55E83049237313FD0063054C;
 					};
@@ -238,6 +286,7 @@
 			targets = (
 				55E83049237313FD0063054C /* ThreeViewChallenge */,
 				55E830B5237338B50063054C /* ThreeViewChallengeTests */,
+				55E830D12373F09F0063054C /* ThreeViewChallengeUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -254,6 +303,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		55E830B4237338B50063054C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		55E830D02373F09F0063054C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -277,7 +333,6 @@
 				55E83050237313FD0063054C /* SceneDelegate.swift in Sources */,
 				55E830642373155A0063054C /* StoryBoarded.swift in Sources */,
 				55E830CB2373E4670063054C /* DynamicFonts.swift in Sources */,
-				55E830C72373650C0063054C /* Device.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,8 +340,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				55E830B9237338B50063054C /* ThreeViewChallengeTests.swift in Sources */,
+				55E830CD2373E6E50063054C /* InputDataTests.swift in Sources */,
 				55E830C123733B9A0063054C /* InputViewTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		55E830CE2373F09F0063054C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55E830D52373F09F0063054C /* ThreeViewChallengeUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,6 +360,11 @@
 			isa = PBXTargetDependency;
 			target = 55E83049237313FD0063054C /* ThreeViewChallenge */;
 			targetProxy = 55E830BB237338B50063054C /* PBXContainerItemProxy */;
+		};
+		55E830D82373F09F0063054C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 55E83049237313FD0063054C /* ThreeViewChallenge */;
+			targetProxy = 55E830D72373F09F0063054C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -510,6 +578,44 @@
 			};
 			name = Release;
 		};
+		55E830DA2373F09F0063054C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = H28M339QJB;
+				INFOPLIST_FILE = ThreeViewChallengeUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.jaakkokentta.ThreeViewChallengeUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = ThreeViewChallenge;
+			};
+			name = Debug;
+		};
+		55E830DB2373F09F0063054C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = H28M339QJB;
+				INFOPLIST_FILE = ThreeViewChallengeUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.jaakkokentta.ThreeViewChallengeUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = ThreeViewChallenge;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -536,6 +642,15 @@
 			buildConfigurations = (
 				55E830BE237338B50063054C /* Debug */,
 				55E830BF237338B50063054C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		55E830D92373F09F0063054C /* Build configuration list for PBXNativeTarget "ThreeViewChallengeUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				55E830DA2373F09F0063054C /* Debug */,
+				55E830DB2373F09F0063054C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

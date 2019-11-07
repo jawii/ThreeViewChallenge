@@ -11,13 +11,11 @@ import UIKit
 class InputView: UIView {
 
 	// MARK: Properties
-	var values: [Int]!
 	lazy private var infoLabel: UILabel = {
 		let infoLabel = UILabel(frame: .zero)
 
 		infoLabel.translatesAutoresizingMaskIntoConstraints = false
 		infoLabel.textAlignment = .left
-		infoLabel.text = "Input"
 		infoLabel.textColor = UIColor.systemGray2
 		infoLabel.font = DynamicFonts.scaledBaseFont
 
@@ -83,14 +81,6 @@ class InputView: UIView {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	override func layoutSubviews() {
-		super.layoutSubviews()
-//		let isLandscape = Device.isLandscape
-//		contentStack.axis = isLandscape ? .horizontal : .vertical
-//		contentStack.spacing = isLandscape ? 50 : 0
-	}
-
-
 	// MARK: - Public methods
 
 	/// Returns boolean whether the textfield is editing
@@ -98,9 +88,14 @@ class InputView: UIView {
 		return textField.isFirstResponder
 	}
 
+	/// Returns textfield
+	/// Sideeffects: Sets textfield empty if something else than double set
 	func getNewValue() -> Double? {
 		guard let text = textField.text else { return nil }
-		guard let number = Double(text) else { return nil }
+		guard let number = Double(text) else {
+			textField.text = ""
+			return nil
+		}
 		return number
 	}
 
