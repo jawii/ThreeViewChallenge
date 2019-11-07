@@ -55,9 +55,9 @@ class MainTabBarController: UITabBarController, InputCoordinator {
 
 	// MARK: - InputCoordinator - protocol
 
-	func didSetInput(values: [Double?], atIndex: Int) {
+	func didSetInput(values: [Double?], atIndex index: Int) {
 		// Set new values to storage
-		storage.setValues(values, forIndex: atIndex)
+		storage.setValues(values, forIndex: index)
 		// Input data is value type so set the new values to outputvc
 		resultVC.inputData = storage.inputData
 	}

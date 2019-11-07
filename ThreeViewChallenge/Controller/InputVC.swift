@@ -11,9 +11,11 @@ import UIKit
 class InputVC: UIViewController, Storyboarded {
 
 	// MARK: - Outlets
+
 	@IBOutlet private var toolBarView: UIView!
 
 	// MARK: - Properties
+
 	var inputIndex: Int!
 	weak var coordinator: InputCoordinator?
 
@@ -30,6 +32,7 @@ class InputVC: UIViewController, Storyboarded {
 	}()
 
 	// MARK: - Initialization
+
 	override func loadView() {
 		super.loadView()
 

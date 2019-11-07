@@ -39,29 +39,29 @@ class InputView: UIView {
 		return textField
 	}()
 
-	lazy private var contentStack: UIStackView = {
-		let stack = UIStackView(frame: .zero)
-		stack.translatesAutoresizingMaskIntoConstraints = false
-		stack.axis = .vertical
-		self.addSubview(stack)
-		return stack
-	}()
+	private var infoLabelLeadingAnchor: NSLayoutConstraint!
+	private var infoLabelCenterXAnchor: NSLayoutConstraint!
 
 	// MARK: - Initialization
 
 	required init(orderNumber: String, toolBarView: UIView) {
 		super.init(frame: .zero)
 
-		contentStack.addArrangedSubview(textField)
-		contentStack.addArrangedSubview(infoLabel)
-
 		NSLayoutConstraint.activate([
-			contentStack.widthAnchor.constraint(equalTo: self.widthAnchor),
-			contentStack.heightAnchor.constraint(equalTo: self.heightAnchor),
-			contentStack.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-			contentStack.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-			textField.heightAnchor.constraint(greaterThanOrEqualToConstant: 44)
+			textField.topAnchor.constraint(equalTo: self.topAnchor),
+			textField.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+			textField.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+			textField.heightAnchor.constraint(greaterThanOrEqualToConstant: 44),
+
+			infoLabel.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 4),
+			infoLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor)
 		])
+
+		infoLabelLeadingAnchor = infoLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor)
+		infoLabelLeadingAnchor.isActive = true
+
+		infoLabelCenterXAnchor = infoLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor)
+
 		// Let the textfield take the space
 		infoLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
 		infoLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
@@ -71,10 +71,34 @@ class InputView: UIView {
 
 		textField.isAccessibilityElement = true 
 		textField.accessibilityIdentifier = "textfield \(orderNumber)"
+
+		textField.addTarget(self, action: #selector(textFieldEditingChanged), for: .editingDidBegin)
+		textField.addTarget(self, action: #selector(textFieldEditingChanged), for: .editingDidEnd)
 	}
 	
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
+	}
+
+	// MARK: - Private methods
+
+	@objc private func textFieldEditingChanged() {
+
+		infoLabelLeadingAnchor.isActive = !infoLabelLeadingAnchor.isActive
+		infoLabelCenterXAnchor.isActive = !infoLabelCenterXAnchor.isActive
+		setNeedsUpdateConstraints()
+
+		UIView.animate(
+			withDuration: 1.0,
+			delay: 0,
+			usingSpringWithDamping: 0.9,
+			initialSpringVelocity: 10.0,
+			options: [.curveEaseIn],
+			animations: { [weak self] in
+				guard let self = self else { return }
+				self.infoLabel.textColor = self.infoLabelLeadingAnchor.isActive ? UIColor.systemGray2 : UIColor.black
+				self.layoutIfNeeded()
+			}, completion: nil)
 	}
 
 	// MARK: - Public methods
