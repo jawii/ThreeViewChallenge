@@ -9,7 +9,7 @@
 
 import UIKit
 
-protocol InputCoordinator {
+protocol InputCoordinator: class {
 	func didSetInput(values: [Double?], atIndex index: Int)
 }
 
@@ -33,7 +33,7 @@ class MainTabBarController: UITabBarController, InputCoordinator {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-		// Set viewcontrollers inside navigationcontroller for the title and future
+		// Set viewcontrollers inside navigationcontroller for the system provided title
 		let firstNav = UINavigationController()
 		firstVC = InputVC.makeInputVCForTabBar(inputIndex: 0)
 		firstVC.coordinator = self
@@ -49,8 +49,8 @@ class MainTabBarController: UITabBarController, InputCoordinator {
 
 		viewControllers = [firstNav, secondNav, resultNav]
 
-		firstVC.setValues(values: storage.getValues(forInputIndex: 0))
-		secondVC.setValues(values: storage.getValues(forInputIndex: 1))
+		firstVC.setValues(values: storage.values(forInputIndex: 0))
+		secondVC.setValues(values: storage.values(forInputIndex: 1))
 		resultVC.inputData = storage.inputData
 	}
 
@@ -59,7 +59,7 @@ class MainTabBarController: UITabBarController, InputCoordinator {
 	func didSetInput(values: [Double?], atIndex: Int) {
 		// Set new values to storage
 		storage.setValues(values, forIndex: atIndex)
-		// Set new values to outputvc
+		// Input data is value type so set the new values to outputvc
 		resultVC.inputData = storage.inputData
 	}
 }

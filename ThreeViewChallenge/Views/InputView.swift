@@ -12,13 +12,13 @@ class InputView: UIView {
 
 	// MARK: Properties
 	var values: [Int]!
-
 	lazy private var infoLabel: UILabel = {
 		let infoLabel = UILabel(frame: .zero)
 
 		infoLabel.translatesAutoresizingMaskIntoConstraints = false
-		infoLabel.textAlignment = .center
+		infoLabel.textAlignment = .left
 		infoLabel.text = "Input"
+		infoLabel.textColor = UIColor.systemGray2
 
 		addSubview(infoLabel)
 		return infoLabel
@@ -52,12 +52,14 @@ class InputView: UIView {
 		}
 	}
 
+
 	// MARK: - Initialization
+
 	required init(withText infoText: String, toolBarView: UIView) {
 		super.init(frame: .zero)
 
-		contentStack.addArrangedSubview(infoLabel)
 		contentStack.addArrangedSubview(textField)
+		contentStack.addArrangedSubview(infoLabel)
 
 		NSLayoutConstraint.activate([
 			contentStack.widthAnchor.constraint(equalTo: self.widthAnchor),
@@ -71,7 +73,7 @@ class InputView: UIView {
 		infoLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
 		infoLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
 
-		infoLabel.text = infoText
+		infoLabel.text = "VALUE \(infoText)"
 		textField.inputAccessoryView = toolBarView
 	}
 	
@@ -81,10 +83,11 @@ class InputView: UIView {
 
 	override func layoutSubviews() {
 		super.layoutSubviews()
-		let isLandscape = Device.isLandscape
-		contentStack.axis = isLandscape ? .horizontal : .vertical
-		contentStack.spacing = isLandscape ? 50 : 20
+//		let isLandscape = Device.isLandscape
+//		contentStack.axis = isLandscape ? .horizontal : .vertical
+//		contentStack.spacing = isLandscape ? 50 : 0
 	}
+
 
 	// MARK: - Public methods
 
@@ -99,8 +102,16 @@ class InputView: UIView {
 		return number
 	}
 
-	func setTextFieldValue(_ value: String) {
-		print("Setting value: \(value)")
-		textField.text = value
+	func setTextFieldValue(_ value: Double?) {
+		if let value = value {
+			// set without decimals if they are zeros
+			if value == value.rounded() {
+				textField.text = String(Int(value))
+			} else {
+				textField.text = String(value)
+			}
+		} else {
+			textField.text = ""
+		}
 	}
 }

@@ -22,12 +22,12 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="num-bJ-GCw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <view contentMode="scaleToFill" id="XUS-f1-s33">
+                <view contentMode="scaleToFill" ambiguous="YES" id="XUS-f1-s33">
                     <rect key="frame" x="0.0" y="0.0" width="420" height="50"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6cV-Y9-89v">
-                            <rect key="frame" x="180" y="10" width="60" height="30"/>
+                            <rect key="frame" x="0.0" y="44" width="420" height="30"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                             <state key="normal" title="Confirm">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -39,8 +39,11 @@
                     </subviews>
                     <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
-                        <constraint firstItem="6cV-Y9-89v" firstAttribute="centerX" secondItem="XUS-f1-s33" secondAttribute="centerX" id="8pj-Of-xY3"/>
-                        <constraint firstItem="6cV-Y9-89v" firstAttribute="centerY" secondItem="XUS-f1-s33" secondAttribute="centerY" id="fg3-11-bs4"/>
+                        <constraint firstItem="6cV-Y9-89v" firstAttribute="leading" secondItem="mGO-i1-BhH" secondAttribute="leading" id="Erf-Mt-yHk"/>
+                        <constraint firstItem="6cV-Y9-89v" firstAttribute="top" secondItem="mGO-i1-BhH" secondAttribute="top" id="LpD-xf-q0t"/>
+                        <constraint firstItem="mGO-i1-BhH" firstAttribute="trailing" secondItem="6cV-Y9-89v" secondAttribute="trailing" id="Z46-o9-O3t"/>
+                        <constraint firstItem="6cV-Y9-89v" firstAttribute="bottom" secondItem="mGO-i1-BhH" secondAttribute="bottom" id="fOc-jc-NAO"/>
+                        <constraint firstItem="mGO-i1-BhH" firstAttribute="top" secondItem="6cV-Y9-89v" secondAttribute="top" id="nZM-HH-eHC"/>
                     </constraints>
                     <viewLayoutGuide key="safeArea" id="mGO-i1-BhH"/>
                 </view>
@@ -55,48 +58,31 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="5Ea-Mh-N97">
-                                <rect key="frame" x="183" y="64" width="48" height="118"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Result" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="woD-y5-aWX">
-                                        <rect key="frame" x="0.0" y="0.0" width="48" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Result" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WtO-kV-6lZ">
-                                        <rect key="frame" x="0.0" y="32.5" width="48" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Result" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jOU-v6-d2t">
-                                        <rect key="frame" x="0.0" y="65" width="48" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Result" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RX4-HG-C8B">
-                                        <rect key="frame" x="0.0" y="97.5" width="48" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                            </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="InfoLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hr0-Dz-pBW">
+                                <rect key="frame" x="172" y="64" width="70.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Result" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VLx-jr-X4E">
+                                <rect key="frame" x="183" y="105" width="48" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="5Ea-Mh-N97" firstAttribute="top" secondItem="aku-VX-n0X" secondAttribute="top" constant="20" id="Y2Y-aG-O2D"/>
-                            <constraint firstItem="5Ea-Mh-N97" firstAttribute="centerX" secondItem="ZQm-8d-E20" secondAttribute="centerX" id="ePQ-Nx-m1b"/>
+                            <constraint firstItem="Hr0-Dz-pBW" firstAttribute="centerX" secondItem="ZQm-8d-E20" secondAttribute="centerX" id="Dux-Ih-4B5"/>
+                            <constraint firstItem="VLx-jr-X4E" firstAttribute="top" secondItem="Hr0-Dz-pBW" secondAttribute="bottom" constant="20" id="U5y-40-gj8"/>
+                            <constraint firstItem="VLx-jr-X4E" firstAttribute="centerX" secondItem="ZQm-8d-E20" secondAttribute="centerX" id="gl7-pI-8ib"/>
+                            <constraint firstItem="Hr0-Dz-pBW" firstAttribute="top" secondItem="aku-VX-n0X" secondAttribute="top" constant="20" id="zDK-UK-CFi"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="aku-VX-n0X"/>
                     </view>
                     <connections>
-                        <outletCollection property="valuesLabels" destination="woD-y5-aWX" collectionClass="NSMutableArray" id="lUc-FZ-Qh9"/>
-                        <outletCollection property="valuesLabels" destination="WtO-kV-6lZ" collectionClass="NSMutableArray" id="SGl-EG-93c"/>
-                        <outletCollection property="valuesLabels" destination="jOU-v6-d2t" collectionClass="NSMutableArray" id="wH9-pw-BLX"/>
-                        <outletCollection property="valuesLabels" destination="RX4-HG-C8B" collectionClass="NSMutableArray" id="2o9-XI-zeN"/>
+                        <outlet property="infoLabel" destination="Hr0-Dz-pBW" id="f7Q-dv-qvY"/>
+                        <outlet property="resultLabel" destination="VLx-jr-X4E" id="4PZ-Ez-lMW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bae-Zz-AB8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

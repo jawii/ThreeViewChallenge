@@ -15,7 +15,7 @@ class InputVC: UIViewController, Storyboarded {
 
 	// MARK: - Properties
 	var inputIndex: Int!
-	var coordinator: InputCoordinator?
+	weak var coordinator: InputCoordinator?
 
 	lazy private var firstInputView: InputView = {
 		let inputView = InputView(withText: "1", toolBarView: toolBarView)
@@ -45,7 +45,7 @@ class InputVC: UIViewController, Storyboarded {
 
 		let margins = self.view.layoutMarginsGuide // safe area
 		NSLayoutConstraint.activate([
-			stack.topAnchor.constraint(equalTo: margins.topAnchor, constant: 20),
+			stack.topAnchor.constraint(equalTo: margins.topAnchor, constant: 22),
 			stack.centerXAnchor.constraint(equalTo: margins.centerXAnchor),
 			stack.trailingAnchor.constraint(equalTo: margins.trailingAnchor, constant: -20),
 			stack.leadingAnchor.constraint(equalTo: margins.leadingAnchor, constant: 20)
@@ -54,7 +54,17 @@ class InputVC: UIViewController, Storyboarded {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+		// Dismiss keyboard when view is tapped
+		let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+		self.view.addGestureRecognizer(tapGesture)
     }
+
+	// MARK: - Private methods
+
+	@objc func dismissKeyboard() {
+		view.endEditing(true)
+	}
 
 	// MARK: - IBActions
 
@@ -67,12 +77,8 @@ class InputVC: UIViewController, Storyboarded {
 	// MARK: - Public Methods
 	
 	func setValues(values: [Double?]) {
-		if let firstValue = values[0]  {
-			firstInputView.setTextFieldValue(String(firstValue))
-		}
-		if let secondValue = values[1] {
-			secondInputView.setTextFieldValue(String(secondValue))
-		}
+		firstInputView.setTextFieldValue(values[0])
+		secondInputView.setTextFieldValue(values[1])
 	}
 }
 

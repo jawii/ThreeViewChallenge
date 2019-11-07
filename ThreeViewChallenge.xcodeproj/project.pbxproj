@@ -13,7 +13,6 @@
 		55E83057237313FF0063054C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55E83056237313FF0063054C /* Assets.xcassets */; };
 		55E8305A237313FF0063054C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55E83058237313FF0063054C /* LaunchScreen.storyboard */; };
 		55E830642373155A0063054C /* StoryBoarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E830622373155A0063054C /* StoryBoarded.swift */; };
-		55E830652373155A0063054C /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E830632373155A0063054C /* Coordinator.swift */; };
 		55E830672373159C0063054C /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E830662373159C0063054C /* MainTabBarController.swift */; };
 		55E8306D237316EC0063054C /* ResultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E8306C237316EC0063054C /* ResultVC.swift */; };
 		55E8307023731F230063054C /* InputVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E8306F23731F230063054C /* InputVC.swift */; };
@@ -22,6 +21,7 @@
 		55E830C123733B9A0063054C /* InputViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E830C023733B9A0063054C /* InputViewTests.swift */; };
 		55E830C423733F940063054C /* InputStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E830C323733F940063054C /* InputStorage.swift */; };
 		55E830C72373650C0063054C /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E830C62373650C0063054C /* Device.swift */; };
+		55E830C92373E3D50063054C /* InputData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E830C82373E3D50063054C /* InputData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,7 +43,6 @@
 		55E83059237313FF0063054C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		55E8305B237313FF0063054C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		55E830622373155A0063054C /* StoryBoarded.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryBoarded.swift; sourceTree = "<group>"; };
-		55E830632373155A0063054C /* Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		55E830662373159C0063054C /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		55E8306C237316EC0063054C /* ResultVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultVC.swift; sourceTree = "<group>"; };
 		55E8306F23731F230063054C /* InputVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputVC.swift; sourceTree = "<group>"; };
@@ -54,6 +53,7 @@
 		55E830C023733B9A0063054C /* InputViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputViewTests.swift; sourceTree = "<group>"; };
 		55E830C323733F940063054C /* InputStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputStorage.swift; sourceTree = "<group>"; };
 		55E830C62373650C0063054C /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
+		55E830C82373E3D50063054C /* InputData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,7 +115,6 @@
 			isa = PBXGroup;
 			children = (
 				55E830622373155A0063054C /* StoryBoarded.swift */,
-				55E830632373155A0063054C /* Coordinator.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -151,6 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				55E830C323733F940063054C /* InputStorage.swift */,
+				55E830C82373E3D50063054C /* InputData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -268,8 +268,8 @@
 				55E8304E237313FD0063054C /* AppDelegate.swift in Sources */,
 				55E8307023731F230063054C /* InputVC.swift in Sources */,
 				55E830C423733F940063054C /* InputStorage.swift in Sources */,
+				55E830C92373E3D50063054C /* InputData.swift in Sources */,
 				55E830672373159C0063054C /* MainTabBarController.swift in Sources */,
-				55E830652373155A0063054C /* Coordinator.swift in Sources */,
 				55E830AF23732C830063054C /* InputView.swift in Sources */,
 				55E83050237313FD0063054C /* SceneDelegate.swift in Sources */,
 				55E830642373155A0063054C /* StoryBoarded.swift in Sources */,
