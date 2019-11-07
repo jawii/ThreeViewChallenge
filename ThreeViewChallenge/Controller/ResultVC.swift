@@ -12,8 +12,16 @@ class ResultVC: UIViewController, Storyboarded {
 
 	// MARK: - IBOutlets
 
-	@IBOutlet var infoLabel: UILabel!
-	@IBOutlet var resultLabel: UILabel!
+	@IBOutlet var infoLabel: UILabel! {
+		didSet {
+			infoLabel.font = DynamicFonts.scaledTitleFont
+		}
+	}
+	@IBOutlet var resultLabel: UILabel! {
+		didSet {
+			infoLabel.font = DynamicFonts.scaledBoldFont
+		}
+	}
 
 	// MARK: - Properties
 

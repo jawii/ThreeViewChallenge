@@ -19,6 +19,7 @@ class InputView: UIView {
 		infoLabel.textAlignment = .left
 		infoLabel.text = "Input"
 		infoLabel.textColor = UIColor.systemGray2
+		infoLabel.font = DynamicFonts.scaledBaseFont
 
 		addSubview(infoLabel)
 		return infoLabel
@@ -33,6 +34,7 @@ class InputView: UIView {
 		textField.keyboardType = .decimalPad
 		textField.textAlignment = .center
 		textField.placeholder = "Tap to set"
+		textField.font = DynamicFonts.scaledBoldFont
 
 		addSubview(textField)
 		return textField
