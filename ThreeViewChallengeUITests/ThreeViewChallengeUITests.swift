@@ -16,6 +16,7 @@ class ThreeViewChallengeUITests: XCTestCase {
 		app = XCUIApplication()
         continueAfterFailure = false
 		app.launchArguments.append("--uitesting")
+		app.launch()
     }
 
     override func tearDown() {
@@ -23,31 +24,28 @@ class ThreeViewChallengeUITests: XCTestCase {
     }
 
 	func test_ui_startsFromFirstInputView() {
-		app.launch()
 		XCTAssertTrue(app.isDisplayingFirstScreen)
 	}
 
 	func test_ui_continuesSameView_whenPaused() {
-		app.launch()
+		// Activating takes some time so do the waiting
 
 		XCUIDevice.shared.press(.home)
 		XCUIApplication().activate()
-		XCTAssertTrue(app.isDisplayingFirstScreen)
+		XCTAssertTrue(app.waitForElementToAppear(app.firstScreen))
 
 		app.tabBars.buttons["Input 2"].tap()
 		XCUIDevice.shared.press(.home)
 		XCUIApplication().activate()
-		XCTAssertTrue(app.isDisplayingSecondScreen)
+		XCTAssertTrue(app.waitForElementToAppear(app.secondScreen))
 
 		app.tabBars.buttons["Result"].tap()
 		XCUIDevice.shared.press(.home)
 		XCUIApplication().activate()
-		XCTAssertTrue(app.isDisplayingResultScreen)
+		XCTAssertTrue(app.waitForElementToAppear(app.resultScreen))
 	}
 
 	func test_simpleInput() {
-		app.launch()
-
 		let firstTextField = app.firstInputTextField
 		let secondTextField = app.secondInputTextField
 
@@ -65,8 +63,6 @@ class ThreeViewChallengeUITests: XCTestCase {
 	}
 
 	func test_input_change() {
-		app.launch()
-
 		// Go first screen and provide values
 		app.firstInputTextField.tap()
 		app.keys["2"].tap()
@@ -91,7 +87,40 @@ class ThreeViewChallengeUITests: XCTestCase {
 		XCTAssertTrue(app.staticTexts["1.0 × 8.0 = 8.0"].exists)
 	}
 
+	func test_lastEdited1() {
+		// Go first screen and provide values
+		app.setInputFieldValues(values: ["2", "3"])
 
+		// Go second screen and provide values
+		app.tabBars.buttons["Input 2"].tap()
+		app.setInputFieldValues(values: ["8", "7"])
+
+		// Go first screen and touch values
+		app.tabBars.buttons["Input 1"].tap()
+		app.firstInputTextField.tap()
+		app.staticTexts["Confirm"].tap()
+
+		// Check result page
+		app.tabBars.buttons["Result"].tap()
+		XCTAssertTrue(app.staticTexts["2.0 × 3.0 = 6.0"].exists)
+	}
+
+	func test_ui_incompletevalues() {
+		app.firstInputTextField.tap()
+		app.keys["3"].tap()
+		app.staticTexts["Confirm"].tap()
+
+		app.tabBars.buttons["Result"].tap()
+		XCTAssertTrue(app.staticTexts["Incomplete values."].exists)
+	}
+
+	func test_ui_valuesNotProvided() {
+		app.tabBars.buttons["Result"].tap()
+		XCTAssertTrue(app.staticTexts["No Inputs Provided."].exists)
+	}
+
+
+	/*
     func testLaunchPerformance() {
         if #available(macOS 10.15, iOS 13.0, tvOS 13.0, *) {
             // This measures how long it takes to launch your application.
@@ -100,26 +129,55 @@ class ThreeViewChallengeUITests: XCTestCase {
             }
         }
     }
+	*/
 }
 
 extension XCUIApplication {
+
+	var firstScreen: XCUIElement {
+		return otherElements["input 1"]
+	}
+	var secondScreen: XCUIElement {
+		return otherElements["input 2"]
+	}
+	var resultScreen: XCUIElement {
+		return otherElements["result view"]
+	}
+
     var isDisplayingFirstScreen: Bool {
-        return otherElements["input 1"].exists
+        return firstScreen.exists
     }
 
 	var isDisplayingSecondScreen: Bool {
-		return otherElements["input 2"].exists
+		return secondScreen.exists
 	}
 
 	var isDisplayingResultScreen: Bool {
-		return otherElements["result view"].exists
+		return resultScreen.exists
+	}
+
+	func waitForElementToAppear(_ element: XCUIElement) -> Bool {
+		let predicate = NSPredicate(format: "exists == true")
+		let expectation = XCTNSPredicateExpectation(predicate: predicate, object: element)
+		let result = XCTWaiter().wait(for: [expectation], timeout: 5)
+		return result == .completed
 	}
 
 	var firstInputTextField: XCUIElement {
-		return children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element(boundBy: 0).textFields["Tap to set"]
+		return textFields["textfield 1"]
 	}
 
 	var secondInputTextField: XCUIElement {
-		return children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element(boundBy: 1).textFields["Tap to set"]
+		return textFields["textfield 2"]
+	}
+
+	func setInputFieldValues(values: [String]) {
+		firstInputTextField.tap()
+		keys[values[0]].tap()
+		staticTexts["Confirm"].tap()
+
+		secondInputTextField.tap()
+        keys[values[1]].tap()
+		staticTexts["Confirm"].tap()
 	}
 }

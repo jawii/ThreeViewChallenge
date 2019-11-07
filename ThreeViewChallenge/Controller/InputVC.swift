@@ -18,13 +18,13 @@ class InputVC: UIViewController, Storyboarded {
 	weak var coordinator: InputCoordinator?
 
 	lazy private var firstInputView: InputView = {
-		let inputView = InputView(withText: "1", toolBarView: toolBarView)
+		let inputView = InputView(orderNumber: "1", toolBarView: toolBarView)
 		inputView.translatesAutoresizingMaskIntoConstraints = false
 		return inputView
 	}()
 
 	lazy private var secondInputView: InputView = {
-		let inputView = InputView(withText: "2", toolBarView: toolBarView)
+		let inputView = InputView(orderNumber: "2", toolBarView: toolBarView)
 		inputView.translatesAutoresizingMaskIntoConstraints = false
 		return inputView
 	}()

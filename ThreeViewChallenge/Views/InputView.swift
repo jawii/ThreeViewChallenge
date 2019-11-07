@@ -55,7 +55,7 @@ class InputView: UIView {
 
 	// MARK: - Initialization
 
-	required init(withText infoText: String, toolBarView: UIView) {
+	required init(orderNumber: String, toolBarView: UIView) {
 		super.init(frame: .zero)
 
 		contentStack.addArrangedSubview(textField)
@@ -73,8 +73,11 @@ class InputView: UIView {
 		infoLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
 		infoLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
 
-		infoLabel.text = "VALUE \(infoText)"
+		infoLabel.text = "VALUE \(orderNumber)"
 		textField.inputAccessoryView = toolBarView
+
+		textField.isAccessibilityElement = true 
+		textField.accessibilityIdentifier = "textfield \(orderNumber)"
 	}
 	
 	required init?(coder: NSCoder) {

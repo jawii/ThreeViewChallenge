@@ -20,13 +20,13 @@ class InputViewTests: XCTestCase {
     }
 
     func test_inputview_noValueAtStart() {
-		sut = InputView(withText: "", toolBarView: UIView())
+		sut = InputView(orderNumber: "", toolBarView: UIView())
 
 		XCTAssertNil(sut.getNewValue())
     }
 
 	func test_inputview_returnsGivenValue() {
-		sut = InputView(withText: "", toolBarView: UIView())
+		sut = InputView(orderNumber: "", toolBarView: UIView())
 
 		sut.setTextFieldValue(20)
 		XCTAssert(sut.getNewValue() == 20)
