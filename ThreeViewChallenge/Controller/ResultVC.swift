@@ -28,7 +28,6 @@ class ResultVC: UIViewController, Storyboarded {
 
 	var inputData: InputData!
 
-	
 	// MARK: - VC Life Cycle Methods
 
     override func viewDidLoad() {
@@ -40,7 +39,6 @@ class ResultVC: UIViewController, Storyboarded {
 		super.viewWillAppear(animated)
 		setViewForInputData()
 	}
-
 
 	// MARK: - Private functions
 

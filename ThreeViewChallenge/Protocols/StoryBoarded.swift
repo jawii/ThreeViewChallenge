@@ -17,6 +17,9 @@ extension Storyboarded where Self: UIViewController {
 		let fullName = NSStringFromClass(self)
 		let className = fullName.components(separatedBy: ".")[1]
 		let storyboard = UIStoryboard(name: storyboard, bundle: Bundle.main)
-		return storyboard.instantiateViewController(withIdentifier: className) as! Self
+		guard let newVC = storyboard.instantiateViewController(withIdentifier: className) as? Self else {
+			fatalError("Storyboard misconfiguration.")
+		}
+		return newVC
 	}
 }

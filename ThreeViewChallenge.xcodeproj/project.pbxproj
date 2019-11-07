@@ -117,7 +117,6 @@
 			children = (
 				55E8304D237313FD0063054C /* AppDelegate.swift */,
 				55E8304F237313FD0063054C /* SceneDelegate.swift */,
-				55E830662373159C0063054C /* MainTabBarController.swift */,
 				55E8306E237316FF0063054C /* Controller */,
 				55E830AD23732C6E0063054C /* Views */,
 				55E830C223733F820063054C /* Model */,
@@ -142,6 +141,7 @@
 		55E8306E237316FF0063054C /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				55E830662373159C0063054C /* MainTabBarController.swift */,
 				55E8306F23731F230063054C /* InputVC.swift */,
 				55E8306C237316EC0063054C /* ResultVC.swift */,
 			);
@@ -202,6 +202,7 @@
 				55E83046237313FD0063054C /* Sources */,
 				55E83047237313FD0063054C /* Frameworks */,
 				55E83048237313FD0063054C /* Resources */,
+				55596BE323749FA3005A22F3 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -317,6 +318,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		55596BE323749FA3005A22F3 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		55E83046237313FD0063054C /* Sources */ = {

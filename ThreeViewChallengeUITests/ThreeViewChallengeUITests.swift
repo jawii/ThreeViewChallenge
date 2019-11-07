@@ -119,7 +119,6 @@ class ThreeViewChallengeUITests: XCTestCase {
 		XCTAssertTrue(app.staticTexts["No Inputs Provided."].exists)
 	}
 
-
 	/*
     func testLaunchPerformance() {
         if #available(macOS 10.15, iOS 13.0, tvOS 13.0, *) {
@@ -134,27 +133,13 @@ class ThreeViewChallengeUITests: XCTestCase {
 
 extension XCUIApplication {
 
-	var firstScreen: XCUIElement {
-		return otherElements["input 1"]
-	}
-	var secondScreen: XCUIElement {
-		return otherElements["input 2"]
-	}
-	var resultScreen: XCUIElement {
-		return otherElements["result view"]
-	}
+	var firstScreen: XCUIElement { return otherElements["input 1"] }
+	var secondScreen: XCUIElement { return otherElements["input 2"] }
+	var resultScreen: XCUIElement { return otherElements["result view"] }
 
-    var isDisplayingFirstScreen: Bool {
-        return firstScreen.exists
-    }
-
-	var isDisplayingSecondScreen: Bool {
-		return secondScreen.exists
-	}
-
-	var isDisplayingResultScreen: Bool {
-		return resultScreen.exists
-	}
+    var isDisplayingFirstScreen: Bool { return firstScreen.exists }
+	var isDisplayingSecondScreen: Bool { return secondScreen.exists }
+	var isDisplayingResultScreen: Bool { return resultScreen.exists }
 
 	func waitForElementToAppear(_ element: XCUIElement) -> Bool {
 		let predicate = NSPredicate(format: "exists == true")
@@ -163,13 +148,8 @@ extension XCUIApplication {
 		return result == .completed
 	}
 
-	var firstInputTextField: XCUIElement {
-		return textFields["textfield 1"]
-	}
-
-	var secondInputTextField: XCUIElement {
-		return textFields["textfield 2"]
-	}
+	var firstInputTextField: XCUIElement { return textFields["textfield 1"] }
+	var secondInputTextField: XCUIElement { return textFields["textfield 2"] }
 
 	func setInputFieldValues(values: [String]) {
 		firstInputTextField.tap()

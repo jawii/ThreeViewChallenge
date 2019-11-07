@@ -81,7 +81,6 @@ class InputVC: UIViewController, Storyboarded {
 	}
 }
 
-
 extension InputVC {
 	static func makeInputVCForTabBar(inputIndex: Int) -> InputVC {
 		let inputVC = InputVC.instantiate()

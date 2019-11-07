@@ -27,7 +27,7 @@ struct DynamicFonts {
 	// Returns .headline font, scaled up to Dynamic Type.
 	static var scaledTitleFont: UIFont {
 		let titleFont = UIFont(name: "AvenirNext-DemiBold", size: 16)!
-		let metrics = UIFontMetrics(forTextStyle: .headline)
+		let metrics = UIFontMetrics(forTextStyle: .largeTitle)
 		return metrics.scaledFont(for: titleFont)
 	}
 

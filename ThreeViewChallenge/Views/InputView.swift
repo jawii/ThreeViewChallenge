@@ -10,7 +10,8 @@ import UIKit
 
 class InputView: UIView {
 
-	// MARK: Properties
+	// MARK: - Properties
+
 	lazy private var infoLabel: UILabel = {
 		let infoLabel = UILabel(frame: .zero)
 
@@ -46,13 +47,6 @@ class InputView: UIView {
 		return stack
 	}()
 
-	private var toolBarView: UIView! {
-		didSet {
-			textField.inputAccessoryView = toolBarView
-		}
-	}
-
-
 	// MARK: - Initialization
 
 	required init(orderNumber: String, toolBarView: UIView) {
@@ -68,7 +62,6 @@ class InputView: UIView {
 			contentStack.centerYAnchor.constraint(equalTo: self.centerYAnchor),
 			textField.heightAnchor.constraint(greaterThanOrEqualToConstant: 44)
 		])
-		
 		// Let the textfield take the space
 		infoLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
 		infoLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
@@ -92,7 +85,7 @@ class InputView: UIView {
 	}
 
 	/// Returns textfield
-	/// Sideeffects: Sets textfield empty if something else than double set
+	/// Side-effects: Sets textfield text empty if something else than double set
 	func getNewValue() -> Double? {
 		guard let text = textField.text else { return nil }
 		guard let number = Double(text) else {
@@ -104,7 +97,7 @@ class InputView: UIView {
 
 	func setTextFieldValue(_ value: Double?) {
 		if let value = value {
-			// set without decimals if they are zeros
+			// remove zero decimals
 			if value == value.rounded() {
 				textField.text = String(Int(value))
 			} else {

@@ -6,7 +6,6 @@
 //  Copyright © 2019 com.jaakkokentta. All rights reserved.
 //
 
-
 import UIKit
 
 protocol InputCoordinator: class {

@@ -14,7 +14,6 @@ struct InputData: Codable {
 	var inputs: [[Double?]]
 	var lastEditedIndex: Int?
 
-
 	// MARK: Computed Properties
 
 	/// Is inputfields touched
@@ -26,6 +25,7 @@ struct InputData: Codable {
 		return (inputs[lastEditedIndex!].compactMap { $0 }).isEmpty
 	}
 
+	// Check if inputs has every value for current input index
 	var hasCompleteData: Bool {
 		guard !isFresh && !isEmpty else { return false }
 
