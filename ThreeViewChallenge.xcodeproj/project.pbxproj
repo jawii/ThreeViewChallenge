@@ -48,7 +48,7 @@
 		558B1E642376F2BE0081E5DD /* NSAttributedString+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Ext.swift"; sourceTree = SOURCE_ROOT; };
 		558B1E662376F8130081E5DD /* Double+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Ext.swift"; sourceTree = "<group>"; };
 		55A5124F237720CD002EE669 /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = SOURCE_ROOT; };
-		55E8304A237313FD0063054C /* Result.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Result.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		55E8304A237313FD0063054C /* ThreeViewChallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ThreeViewChallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		55E8304D237313FD0063054C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		55E8304F237313FD0063054C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		55E83054237313FD0063054C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -119,7 +119,7 @@
 		55E8304B237313FD0063054C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				55E8304A237313FD0063054C /* Result.app */,
+				55E8304A237313FD0063054C /* ThreeViewChallenge.app */,
 				55E830B6237338B50063054C /* ThreeViewChallengeTests.xctest */,
 				55E830D22373F09F0063054C /* ThreeViewChallengeUITests.xctest */,
 			);
@@ -224,7 +224,7 @@
 			);
 			name = ThreeViewChallenge;
 			productName = ThreeViewChallenge;
-			productReference = 55E8304A237313FD0063054C /* Result.app */;
+			productReference = 55E8304A237313FD0063054C /* ThreeViewChallenge.app */;
 			productType = "com.apple.product-type.application";
 		};
 		55E830B5237338B50063054C /* ThreeViewChallengeTests */ = {
@@ -551,7 +551,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.jaakkokentta.ThreeViewChallenge;
-				PRODUCT_NAME = Result;
+				PRODUCT_NAME = ThreeViewChallenge;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -569,7 +569,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.jaakkokentta.ThreeViewChallenge;
-				PRODUCT_NAME = Result;
+				PRODUCT_NAME = ThreeViewChallenge;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -591,7 +591,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ThreeViewChallenge.app/ThreeViewChallenge";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Result.app/Result";
 			};
 			name = Debug;
 		};
@@ -611,7 +611,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ThreeViewChallenge.app/ThreeViewChallenge";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Result.app/Result";
 			};
 			name = Release;
 		};
