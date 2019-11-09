@@ -75,7 +75,7 @@ class ThreeViewChallengeUITests: XCTestCase {
 		// Go first screen and touch values
 		app.tabBars.buttons["Input 1"].tap()
 		app.firstInputTextField.tap()
-		app.staticTexts["Confirm"].forceTapElement()
+		app.doneButton.forceTapElement()
 
 		// Check result page
 		app.tabBars.buttons["Result"].tap()
@@ -85,7 +85,9 @@ class ThreeViewChallengeUITests: XCTestCase {
 	func test_ui_incompletevalues() {
 		app.firstInputTextField.tap()
 		app.keys["3"].tap()
-		app.staticTexts["Confirm"].forceTapElement()
+
+		app.waitForElementToAppear(app.doneButton)
+		app.doneButton.forceTapElement()
 
 		app.tabBars.buttons["Result"].tap()
 		XCTAssertTrue(app.staticTexts["Incomplete values."].exists)
@@ -95,9 +97,38 @@ class ThreeViewChallengeUITests: XCTestCase {
 		app.tabBars.buttons["Result"].tap()
 		XCTAssertTrue(app.staticTexts["No Inputs Provided."].exists)
 	}
+
+	func test_ui_valuesNotProvided_when_provideValue_andThenDeleteIt() {
+		app.setInputFieldValues(values: ["1", "2"])
+		app.tabBars.buttons["Result"].tap()
+		XCTAssertTrue(app.staticTexts["1.0 × 2.0 = 2.0"].exists)
+
+		app.tabBars.buttons["Input 1"].tap()
+		app.firstInputTextField.tap()
+		app.keys["Delete"].tap()
+
+		app.waitForElementToAppear(app.doneButton)
+		app.doneButton.tap()
+
+		app.tabBars.buttons["Result"].tap()
+		XCTAssertTrue(app.staticTexts["Incomplete values."].exists)
+	}
+
+	func test_nonNumber_values() {
+		app.firstInputTextField.tap()
+		app.firstInputTextField.typeText("Testi")
+		app.doneButton.tap()
+
+		guard let value = app.firstInputTextField.value as? String else {
+			fatalError()
+		}
+		XCTAssert(value == "Tap to set", "Not clearing textfield is non number value is added: \(value)")
+	}
 }
 
 extension XCUIApplication {
+
+	var doneButton: XCUIElement { return toolbars["Toolbar"].buttons["Done"] }
 
 	var firstScreen: XCUIElement { return otherElements["input 1"] }
 	var secondScreen: XCUIElement { return otherElements["input 2"] }
@@ -107,24 +138,26 @@ extension XCUIApplication {
 	var isDisplayingSecondScreen: Bool { return secondScreen.exists }
 	var isDisplayingResultScreen: Bool { return resultScreen.exists }
 
-	func waitForElementToAppear(_ element: XCUIElement) -> Bool {
+	@discardableResult func waitForElementToAppear(_ element: XCUIElement) -> Bool {
 		let predicate = NSPredicate(format: "exists == true")
 		let expectation = XCTNSPredicateExpectation(predicate: predicate, object: element)
 		let result = XCTWaiter().wait(for: [expectation], timeout: 5)
 		return result == .completed
 	}
 
-	var firstInputTextField: XCUIElement { return textFields["textfield 1"] }
-	var secondInputTextField: XCUIElement { return textFields["textfield 2"] }
+	var firstInputTextField: XCUIElement { return tables.textFields["textfield 0"] }
+	var secondInputTextField: XCUIElement { return tables.textFields["textfield 1"] }
 
 	func setInputFieldValues(values: [String]) {
 		firstInputTextField.tap()
 		keys[values[0]].tap()
-		staticTexts["Confirm"].forceTapElement()
+		waitForElementToAppear(doneButton)
+		doneButton.forceTapElement()
 
 		secondInputTextField.tap()
         keys[values[1]].tap()
-		staticTexts["Confirm"].forceTapElement()
+		waitForElementToAppear(doneButton)
+		doneButton.forceTapElement()
 	}
 }
 

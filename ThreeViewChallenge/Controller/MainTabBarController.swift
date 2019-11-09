@@ -30,12 +30,12 @@ class MainTabBarController: UITabBarController, InputCoordinator {
 
     override func viewDidLoad() {
 		super.viewDidLoad()
-
-		setupTabBars()
-		resultVC.inputData = storage.inputData
+		_ = resultVC.view
+		setupTabBar()
+		resultVC.inputResult = storage.inputData.result
 	}
 
-	private func setupTabBars() {
+	private func setupTabBar() {
 		// Set viewcontrollers inside navigationcontroller for the system provided title
 		let firstNav = UINavigationController()
 		let firstVC = InputVC.makeInputVCForTabBar(inputIndex: 0)
@@ -50,8 +50,8 @@ class MainTabBarController: UITabBarController, InputCoordinator {
 		let resultNav = UINavigationController()
 		resultNav.viewControllers = [resultVC]
 
-		firstVC.setValues(values: storage.values(forInputIndex: 0))
-		secondVC.setValues(values: storage.values(forInputIndex: 1))
+		firstVC.values = storage.values(forInputIndex: 0)
+		secondVC.values = storage.values(forInputIndex: 1)
 
 		viewControllers = [firstNav, secondNav, resultNav]
 	}
@@ -62,6 +62,6 @@ class MainTabBarController: UITabBarController, InputCoordinator {
 		// Set new values to storage
 		storage.setValues(values, forIndex: index)
 		// Input data is value type so set the new values to outputvc
-		resultVC.inputData = storage.inputData
+		resultVC.inputResult = storage.inputData.result
 	}
 }

@@ -10,77 +10,56 @@ import UIKit
 
 class InputVC: UIViewController, Storyboarded {
 
-	// MARK: - Outlets
+	// MARK: Outlets
+	@IBOutlet private var tableView: UITableView!
 
-	@IBOutlet private var toolBarView: UIView!
-
-	// MARK: - Properties
-
+	// MARK: Properties
 	var inputIndex: Int!
+	var values: [Double?] = []
 	weak var coordinator: InputCoordinator?
-
-	lazy private var firstInputView: InputView = {
-		let inputView = InputView(orderNumber: "1", toolBarView: toolBarView)
-		inputView.translatesAutoresizingMaskIntoConstraints = false
-		return inputView
-	}()
-
-	lazy private var secondInputView: InputView = {
-		let inputView = InputView(orderNumber: "2", toolBarView: toolBarView)
-		inputView.translatesAutoresizingMaskIntoConstraints = false
-		return inputView
-	}()
-
-	// MARK: - Initialization
-
-	override func loadView() {
-		super.loadView()
-
-		let stack = UIStackView(frame: .zero)
-		stack.translatesAutoresizingMaskIntoConstraints = false
-		stack.axis = .vertical
-		stack.distribution = .fill
-		stack.spacing = 20
-
-		self.view.addSubview(stack)
-		stack.addArrangedSubview(firstInputView)
-		stack.addArrangedSubview(secondInputView)
-
-		let margins = self.view.layoutMarginsGuide // safe area
-		NSLayoutConstraint.activate([
-			stack.topAnchor.constraint(equalTo: margins.topAnchor, constant: 22),
-			stack.centerXAnchor.constraint(equalTo: margins.centerXAnchor),
-			stack.trailingAnchor.constraint(equalTo: margins.trailingAnchor, constant: -12),
-			stack.leadingAnchor.constraint(equalTo: margins.leadingAnchor, constant: 12)
-		])
-	}
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+		tableView.register(InputViewCell.self, forCellReuseIdentifier: InputViewCell.reuseIdentifier)
+		tableView.delegate = self
+		tableView.dataSource = self
+		
 		// Dismiss keyboard when view is tapped
-		let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-		self.view.addGestureRecognizer(tapGesture)
+//		let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+//		self.view.addGestureRecognizer(tapGesture)
     }
+}
 
-	// MARK: - Private methods
-
-	@objc private func dismissKeyboard() {
-		coordinator?.didSet(values: [firstInputView.getNewValue(), secondInputView.getNewValue()], forIndex: inputIndex)
-		view.endEditing(true)
+extension InputVC: UITableViewDataSource, UITableViewDelegate {
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		return values.count
 	}
 
-	// MARK: - IBActions
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: InputViewCell.reuseIdentifier, for: indexPath) as? InputViewCell else {
+			fatalError("Tableview cell configuration error.")
+		}
 
-	@IBAction private func toolBarDoneTapHandler() {
-		dismissKeyboard()
+		cell.delegate = self
+		cell.setupForInput(withInputOrder: indexPath.row, value: values[indexPath.row])
+		return cell
 	}
+}
 
-	// MARK: - Public Methods
-	
-	func setValues(values: [Double?]) {
-		firstInputView.setTextFieldValue(values[0])
-		secondInputView.setTextFieldValue(values[1])
+extension InputVC: InputViewCellDelegate {
+
+	func didSuccesfullyEditValue() {
+		// Get all cells & values from every textfield and provide them back to coordinator
+		var indexPaths = [IndexPath]()
+		for index in 0 ... values.count {
+			indexPaths.append(IndexPath(item: index, section: 0))
+		}
+
+		let cells = indexPaths.compactMap { tableView.cellForRow(at: $0) as? InputViewCell }
+		let values = cells.map { $0.getTextFieldValue() }
+
+		coordinator?.didSet(values: values, forIndex: self.inputIndex)
 	}
 }
 

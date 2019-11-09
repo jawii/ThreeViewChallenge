@@ -21,45 +21,36 @@ class InputDataTests: XCTestCase {
         sut = nil
     }
 
-    func test_inputData_isFresh_whenNoLastEditIndex() {
-        sut = InputData(inputs: [], lastEditedIndex: nil)
-		XCTAssertTrue(sut.isFresh, "Input data fresh if lastedited index nil ")
-    }
+	private var noInputsProvidedText = "No Inputs Provided."
+	private var inCompleteValuesText = "Incomplete values."
+	private var hasResult1 = "Calculating result from Input 1"
+	private var hasResult2 = "Calculating result from Input 2"
 
-	func test_inputData_isEmpty_whenLastEditIndexIsNil() {
-		sut = InputData(inputs: [[nil, nil], [2, nil]], lastEditedIndex: nil)
-		XCTAssertFalse(sut.isEmpty, "InputData is not empty when lastEditIndex nil")
+	var statusText: String { return sut.result.statusText.string }
+	var resultText: String { return sut.result.resultText.string }
+
+	func test_status_noInput_whenNoLastEditIndex() {
+		sut = InputData(inputs: [], lastEditedIndex: nil)
+		XCTAssertTrue(statusText == noInputsProvidedText)
 	}
 
-	func test_inputData_isEmpty_whenNoValues() {
+	func test_status_noInput_whenNoValues() {
 		sut = InputData(inputs: [[nil, nil], [2, nil]], lastEditedIndex: 0)
-		XCTAssertTrue(sut.isEmpty, "InputData not empty with no values")
+		XCTAssertTrue(statusText == noInputsProvidedText)
 	}
 
-	func test_inputData_isNotEmpty_whenHasValues() {
-		sut = InputData(inputs: [[nil, nil], [nil, 4]], lastEditedIndex: 1)
-		XCTAssertFalse(sut.isEmpty, "Input data empty with values")
-	}
-
-	func test_inputData_completeValues_whenAllValuesGiven() {
+	func test_status_ok_whenAllValuesGiven() {
 		sut = InputData(inputs: [[1, 2], [nil, nil]], lastEditedIndex: 0)
-		XCTAssertTrue(sut.hasCompleteData)
+		XCTAssertTrue(statusText == hasResult1)
 	}
 
-	func test_inpuData_noCompleteValues_whenAllValuesNotProvided() {
-		sut = InputData(inputs: [[1, 2], [2, nil]], lastEditedIndex: 1)
-		XCTAssertFalse(sut.hasCompleteData)
+	func test_status_ok_whenAllValuesGiven2() {
+		sut = InputData(inputs: [[1, nil], [3, 2]], lastEditedIndex: 1)
+		XCTAssertTrue(statusText == hasResult2)
 	}
 
-	func test_inpuData_resulsString_withIncompleteValues() {
-		sut = InputData(inputs: [[2, 3], [nil, 2]], lastEditedIndex: 1)
-		XCTAssertNil(sut.resultString)
+	func test_result_incomplete_whenValuesIncomplete() {
+		sut = InputData(inputs: [[nil, nil], [nil, 4]], lastEditedIndex: 1)
+		XCTAssertTrue(resultText == inCompleteValuesText)
 	}
-
-	func test_inpuData_resultsNotNil_whenValuesProvided() {
-		sut = InputData(inputs: [[nil, nil], [2, 3]], lastEditedIndex: 1)
-		XCTAssertNotNil(sut.resultString)
-	}
-
-	// TODO: - Add tests for result quantity 
 }

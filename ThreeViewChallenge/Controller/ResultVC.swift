@@ -13,7 +13,7 @@ class ResultVC: UIViewController, Storyboarded {
 	// MARK: - IBOutlets
 
 	@IBOutlet var infoLabel: UILabel! {
-		didSet {
+		didSet {			
 			infoLabel.adjustsFontForContentSizeCategory = true
 			infoLabel.font = DynamicFonts.scaledTitleFont
 		}
@@ -26,9 +26,12 @@ class ResultVC: UIViewController, Storyboarded {
 		}
 	}
 
-	// MARK: - Properties
-
-	var inputData: InputData!
+	var inputResult: InputResult! {
+		didSet {
+			infoLabel.attributedText = inputResult.statusText
+			resultLabel.attributedText = inputResult.resultText
+		}
+	}
 
 	// MARK: - VC Life Cycle Methods
 
@@ -36,33 +39,4 @@ class ResultVC: UIViewController, Storyboarded {
         super.viewDidLoad()
 		view.accessibilityIdentifier = "result view"
     }
-
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
-		setViewForInputData()
-	}
-
-	// MARK: - Private functions
-
-	private func setViewForInputData() {
-		resultLabel.isHidden = false
-		resultLabel.text = ""
-		infoLabel.text = ""
-
-		// Check if inputs are touched or empty
-		if inputData.isFresh || inputData.isEmpty {
-			infoLabel.text = "No Inputs Provided."
-			resultLabel.isHidden = true
-			return
-		}
-
-		infoLabel.text = "Calculating result from Input \(inputData.lastEditedIndex! + 1)"
-		if !inputData.hasCompleteData {
-			resultLabel.text = "Incomplete values."
-			return
-		}
-
-		// Now there is input and result can be calculated
-		resultLabel.text = inputData.resultString
-	}
 }
