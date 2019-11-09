@@ -124,14 +124,93 @@ class ThreeViewChallengeUITests: XCTestCase {
 		}
 		XCTAssert(value == "Tap to set", "Not clearing textfield is non number value is added: \(value)")
 	}
+
+	func test_editWithoutPressingDoneButton() {
+		app.firstInputTextField.tap()
+		app.keys["1"].tap()
+		app.secondInputTextField.tap()
+		app.keys["3"].tap()
+
+		app.waitForElementToAppear(app.doneButton)
+		app.doneButton.tap()
+
+		app.tabBars.buttons["Result"].tap()
+		XCTAssertTrue(app.staticTexts["1 × 3 = 3"].exists)
+	}
+
+	func test_clearsAll_when_clearallbuttonPressed() {
+		app.setInputFieldValues(values: ["5", "4"])
+		app.buttons["Clear all"].tap()
+		app.alerts["Clear all inputs"].scrollViews.otherElements.buttons["Clear"].tap()
+
+		guard let value = app.firstInputTextField.value as? String else { fatalError() }
+		XCTAssert(value == "Tap to set", "Not clearing textfield is non number value is added: \(value)")
+	}
+
+	func test_setActive_sets_othersInactive() {
+		app.waitForElementToAppear(app.staticTexts["Inactive"])
+
+		app.setInputFieldValues(values: ["2", "5"])
+		XCTAssertTrue(app.staticTexts["Active"].exists)
+
+		app.waitForElementToAppear(app.secondScreen)
+		app.secondScreen.forceTapElement()
+		XCTAssertTrue(app.staticTexts["Inactive"].exists)
+		app.setInputFieldValues(values: ["3", "4"])
+		XCTAssertTrue(app.staticTexts["Active"].exists)
+
+		app.firstScreen.tap()
+		XCTAssertTrue(app.staticTexts["Inactive"].exists)
+		
+	}
+
+	func test_inputToolBarCancelButton_cancelsEditing() {
+		app.setInputFieldValues(values: ["3", "8"])
+
+		app.firstInputTextField.tap()
+		app.keys["Delete"].tap()
+
+		app.waitForElementToAppear(app.cancelButton)
+		app.cancelButton.tap()
+
+		guard let value = app.firstInputTextField.value as? String else { fatalError() }
+		XCTAssert(value == "3")
+
+		app.tabBars.buttons["Result"].tap()
+		XCTAssertTrue(app.staticTexts["3 × 8 = 24"].exists)
+	}
+
+	func test_acceptsUserLocaleNumbers() {
+		app.terminate()
+
+		app.launchArguments += ["-AppleLocale", "fi_FI"]
+		app.launch()
+
+		app.firstInputTextField.tap()
+		app.firstInputTextField.typeText("3,5")
+		app.doneButton.tap()
+
+		app.waitForElementToAppear(app.firstInputTextField)
+		guard let value = app.firstInputTextField.value as? String else { fatalError() }
+		XCTAssert(value == "3,5", "Not clearing textfield is non number value is added: \(value)")
+
+		app.terminate()
+
+		app.launchArguments = ["-AppleLocale", "en_US"] // --uitesting clears localStorage
+		app.launch()
+		guard let value2 = app.firstInputTextField.value as? String else { fatalError() }
+		XCTAssert(value2 == "3.5")
+	}
+
 }
 
 extension XCUIApplication {
 
 	var doneButton: XCUIElement { return toolbars["Toolbar"].buttons["Done"] }
+	var cancelButton: XCUIElement { return toolbars["Toolbar"].buttons["Cancel"] }
 
-	var firstScreen: XCUIElement { return otherElements["input 1"] }
-	var secondScreen: XCUIElement { return otherElements["input 2"] }
+	var firstScreen: XCUIElement { return tabBars.buttons["Input 1"] }
+	var secondScreen: XCUIElement { return tabBars.buttons["Input 2"] }
 	var resultScreen: XCUIElement { return otherElements["result view"] }
 
     var isDisplayingFirstScreen: Bool { return firstScreen.exists }
@@ -158,6 +237,20 @@ extension XCUIApplication {
         keys[values[1]].tap()
 		waitForElementToAppear(doneButton)
 		doneButton.forceTapElement()
+	}
+
+	class func delete(app: String = "ThreeViewChallenge") {
+		let springboard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
+		let appIcon = springboard.icons[app]
+		if appIcon.exists {
+			appIcon.press(forDuration: 1.3)
+			springboard.buttons["Delete App"].tap()
+			Thread.sleep(forTimeInterval: 0.8)
+			springboard.alerts.buttons["Delete"].tap()
+			Thread.sleep(forTimeInterval: 0.8)
+			XCUIDevice.shared.press(.home)
+		}
+		
 	}
 }
 

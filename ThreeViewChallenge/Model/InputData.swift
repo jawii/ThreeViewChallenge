@@ -44,7 +44,10 @@ struct InputData: Codable {
 		let values = inputs[lastEditedIndex!]
 
 		// Construct String
-		let value1Attrs: [NSAttributedString.Key: Any] = [ NSAttributedString.Key.foregroundColor: UIColor.systemTeal ]
+		let value1Attrs: [NSAttributedString.Key: Any] = [
+			NSAttributedString.Key.foregroundColor: UIColor.systemTeal,
+			NSAttributedString.Key.font: DynamicFonts.scaledTitleFont
+		]
 		let value1 = NSMutableAttributedString(string: values[0]!.cleanString, attributes: value1Attrs)
 
 		let value2Attrs: [NSAttributedString.Key: Any] = [ NSAttributedString.Key.foregroundColor: UIColor.systemPink ]
@@ -65,17 +68,20 @@ struct InputData: Codable {
 	}
 
 	var result: InputResult {
+		let statusTextFontAttributes: [NSAttributedString.Key: Any] = [
+			NSAttributedString.Key.font: DynamicFonts.scaledBoldFont
+		]
 		// Check if inputs are touched or empty
 		if isFresh || isEmpty {
 			return (
-				statusText: NSAttributedString(string: "No Inputs Provided."),
+				statusText: NSAttributedString(string: "No Inputs Provided.", attributes: statusTextFontAttributes),
 				resultText: NSAttributedString(string: "")
 			)
 		}
 
 		let statusText = "Calculating result from Input \(lastEditedIndex! + 1)"
 		return (
-			statusText: NSAttributedString(string: statusText),
+			statusText: NSAttributedString(string: statusText, attributes: statusTextFontAttributes),
 			resultText: resultString
 		)
 	}

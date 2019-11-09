@@ -32,7 +32,7 @@ class MainTabBarController: UITabBarController, InputCoordinator {
 		super.viewDidLoad()
 		_ = resultVC.view // load outlets
 		setupTabBar()
-		resultVC.inputResult = storage.inputData.result
+		resultVC.inputResult = storage.getInputResult()
 	}
 
 	private func setupTabBar() {
@@ -51,7 +51,10 @@ class MainTabBarController: UITabBarController, InputCoordinator {
 		resultNav.viewControllers = [resultVC]
 
 		firstVC.values = storage.values(forInputIndex: 0)
+		firstVC.isActiveInput = storage.getLastEditedInputIndex() == 0
+
 		secondVC.values = storage.values(forInputIndex: 1)
+		secondVC.isActiveInput = storage.getLastEditedInputIndex() == 1
 
 		viewControllers = [firstNav, secondNav, resultNav]
 	}
@@ -59,9 +62,20 @@ class MainTabBarController: UITabBarController, InputCoordinator {
 	// MARK: - InputCoordinator - protocol
 
 	func didSet(values: [Double?], forIndex index: Int) {
-		// Set new values to storage
 		storage.setValues(values, forIndex: index)
+
 		// Input data is value type so set the new values to outputvc
-		resultVC.inputResult = storage.inputData.result
+		resultVC.inputResult = storage.getInputResult()
+
+		// get all InputVCs excluding current index and set them inactive
+		let resultVCs =
+			self.viewControllers!
+			.compactMap { $0 as? UINavigationController}
+			.compactMap { $0.viewControllers[0] as? InputVC }
+
+		for (vcIndex, viewController) in resultVCs.enumerated() {
+			if vcIndex == index { continue }
+			viewController.isActiveInput = false
+		}
 	}
 }

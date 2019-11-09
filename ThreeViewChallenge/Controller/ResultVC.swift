@@ -20,7 +20,7 @@ class ResultVC: UIViewController, Storyboarded {
 	}
 	@IBOutlet var resultLabel: UILabel! {
 		didSet {
-			resultLabel.adjustsFontForContentSizeCategory = true 
+			resultLabel.adjustsFontForContentSizeCategory = true
 			resultLabel.font = DynamicFonts.scaledBoldFont
 			resultLabel.accessibilityIdentifier = "result label"
 		}

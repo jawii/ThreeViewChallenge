@@ -12,6 +12,12 @@ class InputVC: UIViewController, Storyboarded {
 
 	// MARK: Outlets
 	@IBOutlet private var tableView: UITableView!
+	@IBOutlet private var isActiveLabel: UILabel! {
+		didSet {
+			isActiveLabel.adjustsFontForContentSizeCategory = true
+			isActiveLabel.font = DynamicFonts.scaledBaseFont
+		}
+	}
 
 	// MARK: Properties
 	var inputIndex: Int!
@@ -19,6 +25,17 @@ class InputVC: UIViewController, Storyboarded {
 		didSet { tableView.reloadData() }
 	}
 	weak var coordinator: InputCoordinator?
+	var isActiveInput: Bool = false {
+		didSet {
+			if isActiveInput {
+				isActiveLabel.text = "Active"
+				isActiveLabel.textColor = UIColor.systemGreen
+			} else {
+				isActiveLabel.text = "Inactive"
+				isActiveLabel.textColor = UIColor.systemRed
+			}
+		}
+	}
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,17 +55,14 @@ class InputVC: UIViewController, Storyboarded {
 		alertVC.addAction(UIAlertAction(title: "Clear", style: .destructive, handler: { [weak self] (_) in
 			guard let self = self else { return }
 			self.values = Array(repeating: nil, count: self.values.count)
-			print(self.values)
 			self.coordinator? .didSet(values: self.values, forIndex: self.inputIndex)
 		}))
-
 		present(alertVC, animated: true, completion: nil)
 	}
 }
 
 extension InputVC: UITableViewDataSource, UITableViewDelegate {
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		print("Tableview reload")
 		return values.count
 	}
 
@@ -59,7 +73,6 @@ extension InputVC: UITableViewDataSource, UITableViewDelegate {
 
 		cell.delegate = self
 		let value = values[indexPath.row]
-		print(value)
 		cell.setupForInput(withInputOrder: indexPath.row, value: value)
 		return cell
 	}
@@ -68,6 +81,7 @@ extension InputVC: UITableViewDataSource, UITableViewDelegate {
 extension InputVC: InputViewCellDelegate {
 
 	func didSuccesfullyEditValue() {
+		isActiveInput = true 
 		// Get all cells & values from every textfield and provide them back to coordinator
 		var indexPaths = [IndexPath]()
 		for index in 0 ... values.count {

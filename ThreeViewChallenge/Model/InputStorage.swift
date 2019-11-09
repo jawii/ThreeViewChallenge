@@ -14,7 +14,7 @@ class InputStorage {
 
 	// MARK: - Properties
 
-	var inputData: InputData!
+	private var inputData: InputData!
 
 	// MARK: - Initalization
 
@@ -39,7 +39,7 @@ class InputStorage {
 
 	/// Save current inputData to Userdefaults
 	private func saveValues() {
-		print("Saving values: \(inputData.inputs)")
+		debugPrint("Saving values: \(inputData.inputs)")
 		let encoder = JSONEncoder()
 		do {
 			let data = try encoder.encode(self.inputData)
@@ -60,5 +60,13 @@ class InputStorage {
 		inputData.inputs[index] = values
 		inputData.lastEditedIndex = index
 		saveValues()
+	}
+
+	func getInputResult() -> InputResult {
+		return inputData.result
+	}
+
+	func getLastEditedInputIndex() -> Int? {
+		return inputData.lastEditedIndex
 	}
 }

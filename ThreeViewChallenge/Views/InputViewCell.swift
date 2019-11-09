@@ -53,7 +53,7 @@ class InputViewCell: UITableViewCell {
 		textField.keyboardType = .decimalPad
 		textField.textAlignment = .center
 		textField.placeholder = "Tap to set"
-		textField.textColor = UIColor.darkText
+		textField.textColor = textFieldTextColor
 
 		textField.isAccessibilityElement = true
 		textField.adjustsFontForContentSizeCategory = true
@@ -66,7 +66,7 @@ class InputViewCell: UITableViewCell {
 		// Add Constraints
 		addSubview(textField)
 		NSLayoutConstraint.activate([
-			textField.topAnchor.constraint(equalTo: self.topAnchor, constant: 12),
+			textField.topAnchor.constraint(equalTo: self.topAnchor, constant: 4),
 			textField.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 12),
 			textField.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -12),
 			textField.heightAnchor.constraint(greaterThanOrEqualToConstant: 44)
@@ -79,12 +79,16 @@ class InputViewCell: UITableViewCell {
 		doneButton.isAccessibilityElement = true
 		doneButton.accessibilityIdentifier = "Done"
 
-		let cancelButton = UIBarButtonItem(title: "Clear", style: .done, target: self, action: #selector(textFieldClearBtnTapHandler))
+		let clearButton = UIBarButtonItem(title: "Clear", style: .done, target: self, action: #selector(textFieldClearBtnTapHandler))
+
+		let cancelButton = UIBarButtonItem(title: "Cancel", style: .done, target: self, action: #selector(textFieldCancelBtnTapHandler))
 
 		let plusMinusImage = UIImage(systemName: "plus.slash.minus")
+
 		let flipMarkBtn = UIBarButtonItem(image: plusMinusImage, style: .done, target: self, action: #selector(flipValueMarkBtnTapHandler))
 		toolbar.items = [
 			cancelButton,
+			clearButton,
 			UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil),
 			flipMarkBtn,
 			UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil),
@@ -104,6 +108,9 @@ class InputViewCell: UITableViewCell {
 	private var infoLabelCenterXAnchor: NSLayoutConstraint!
 	private var infoLabelHighLightColor = UIColor.systemTeal
 	private var infoLabelColor = UIColor.systemGray2
+	private var textFieldTextColor = UIColor.systemIndigo
+	private var textFieldErrorTextColor = UIColor.systemRed
+	private var oldValue: String?
 
 	weak var delegate: InputViewCellDelegate?
 
@@ -137,7 +144,7 @@ class InputViewCell: UITableViewCell {
 
 	@objc private func textFieldDoneBtnTapHandler() {
 		if let text = textField.text {
-			if text.isEmpty || Double(text) != nil {
+			if text.isEmpty || text.convertedToDouble != nil {
 				delegate?.didSuccesfullyEditValue()
 			} else {
 				textField.text = ""
@@ -148,15 +155,19 @@ class InputViewCell: UITableViewCell {
 
 	@objc private func textFieldValueChanged() {
 		if let text = textField.text {
-			if Double(text) == nil {
-				textField.textColor = UIColor.systemRed
+			if text.isEmpty { return }
+
+			if text.convertedToDouble == nil {
+				textField.textColor = textFieldErrorTextColor
 			} else {
-				textField.textColor = UIColor.darkText
+				textField.textColor = textFieldTextColor
 			}
 		}
 	}
 
 	@objc private func textFieldisEditingStatusChanged() {
+		if textField.isEditing { oldValue = textField.text }
+
 		// Animate infolabel to center by flipping constraints and color
 		infoLabelLeadingAnchor.isActive = !infoLabelLeadingAnchor.isActive
 		infoLabelCenterXAnchor.isActive = !infoLabelCenterXAnchor.isActive
@@ -176,15 +187,18 @@ class InputViewCell: UITableViewCell {
 
 	@objc private func textFieldClearBtnTapHandler() {
 		textField.text = ""
-		delegate?.didSuccesfullyEditValue()
-		textField.resignFirstResponder()
 	}
 
 	@objc private func flipValueMarkBtnTapHandler() {
-		if let text = textField.text, let number = Double(text) {
+		if let text = textField.text, let number = text.convertedToDouble {
 			textField.text = (-1 * number).cleanString
-			delegate?.didSuccesfullyEditValue()
 		}
+	}
+
+	@objc private func textFieldCancelBtnTapHandler() {
+		textField.text = oldValue
+		oldValue = ""
+		textField.resignFirstResponder()
 	}
 
 	// MARK: - Public methods
@@ -194,7 +208,7 @@ class InputViewCell: UITableViewCell {
 		guard let text = textField.text else { return nil }
 		if text.isEmpty { return nil }
 
-		guard let number = Double(text) else {
+		guard let number = text.convertedToDouble else {
 			assertionFailure("Textfield contains non-number value")
 			textField.text = ""
 			return nil
