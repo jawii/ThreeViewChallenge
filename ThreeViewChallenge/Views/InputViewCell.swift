@@ -43,6 +43,7 @@ class InputViewCell: UITableViewCell {
 
 		return infoLabel
 	}()
+
 	lazy private var textField: UITextField = {
 		let textField = UITextField(frame: .zero)
 		textField.translatesAutoresizingMaskIntoConstraints = false
@@ -57,6 +58,10 @@ class InputViewCell: UITableViewCell {
 		textField.isAccessibilityElement = true
 		textField.adjustsFontForContentSizeCategory = true
 		textField.font = DynamicFonts.scaledBaseFont
+
+		// For iPad
+		textField.returnKeyType = .done
+		textField.delegate = self
 
 		// Add Constraints
 		addSubview(textField)
@@ -73,10 +78,15 @@ class InputViewCell: UITableViewCell {
 		let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(textFieldDoneBtnTapHandler))
 		doneButton.isAccessibilityElement = true
 		doneButton.accessibilityIdentifier = "Done"
+
 		let cancelButton = UIBarButtonItem(title: "Clear", style: .done, target: self, action: #selector(textFieldClearBtnTapHandler))
 
+		let plusMinusImage = UIImage(systemName: "plus.slash.minus")
+		let flipMarkBtn = UIBarButtonItem(image: plusMinusImage, style: .done, target: self, action: #selector(flipValueMarkBtnTapHandler))
 		toolbar.items = [
 			cancelButton,
+			UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil),
+			flipMarkBtn,
 			UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil),
 			doneButton
 		]
@@ -86,10 +96,6 @@ class InputViewCell: UITableViewCell {
 		textField.addTarget(self, action: #selector(textFieldisEditingStatusChanged), for: .editingDidBegin)
 		textField.addTarget(self, action: #selector(textFieldisEditingStatusChanged), for: .editingDidEnd)
 		textField.addTarget(self, action: #selector(textFieldValueChanged), for: .editingChanged)
-
-		// For iPad
-		textField.returnKeyType = .done
-		textField.delegate = self
 
 		return textField
 	}()
@@ -114,16 +120,17 @@ class InputViewCell: UITableViewCell {
 
 		if let value = value {
 			// remove zero decimals
-			if value == value.rounded() {
-				textField.text = String(Int(value))
-			} else {
-				textField.text = String(value)
-			}
+			textField.text = value.cleanString
 		}
 	}
 	
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
+	}
+
+	override func prepareForReuse() {
+		super.prepareForReuse()
+		textField.text = "" 
 	}
 
 	// MARK: - Private methods
@@ -171,6 +178,13 @@ class InputViewCell: UITableViewCell {
 		textField.text = ""
 		delegate?.didSuccesfullyEditValue()
 		textField.resignFirstResponder()
+	}
+
+	@objc private func flipValueMarkBtnTapHandler() {
+		if let text = textField.text, let number = Double(text) {
+			textField.text = (-1 * number).cleanString
+			delegate?.didSuccesfullyEditValue()
+		}
 	}
 
 	// MARK: - Public methods

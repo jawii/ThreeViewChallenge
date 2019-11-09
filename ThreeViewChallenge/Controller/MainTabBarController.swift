@@ -30,7 +30,7 @@ class MainTabBarController: UITabBarController, InputCoordinator {
 
     override func viewDidLoad() {
 		super.viewDidLoad()
-		_ = resultVC.view
+		_ = resultVC.view // load outlets
 		setupTabBar()
 		resultVC.inputResult = storage.inputData.result
 	}

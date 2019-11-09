@@ -45,14 +45,21 @@ struct InputData: Codable {
 
 		// Construct String
 		let value1Attrs: [NSAttributedString.Key: Any] = [ NSAttributedString.Key.foregroundColor: UIColor.systemTeal ]
-		let value1 = NSMutableAttributedString(string: String(values[0]!), attributes: value1Attrs)
+		let value1 = NSMutableAttributedString(string: values[0]!.cleanString, attributes: value1Attrs)
 
 		let value2Attrs: [NSAttributedString.Key: Any] = [ NSAttributedString.Key.foregroundColor: UIColor.systemPink ]
-		let value2 = NSAttributedString(string: String(values[1]!), attributes: value2Attrs)
+		let wrappedvalue = values[1]!
+		var value2 = NSAttributedString(string: wrappedvalue.cleanString, attributes: value2Attrs)
+
+		if wrappedvalue < 0 {
+			let leftBracket = NSAttributedString(string: "(")
+			let rightBracket = NSAttributedString(string: ")")
+			value2 = leftBracket + value2 + rightBracket
+		}
 
 		let productMark = NSAttributedString(string: " × ")
 		let product = values.compactMap { $0 }.reduce(1, *)
-		let productText = NSAttributedString(string: " = \(product)")
+		let productText = NSAttributedString(string: " = \(product.cleanString)")
 
 		return value1 + productMark + value2 + productText
 	}

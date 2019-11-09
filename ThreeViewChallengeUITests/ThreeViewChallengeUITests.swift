@@ -48,7 +48,7 @@ class ThreeViewChallengeUITests: XCTestCase {
 	func test_simpleInput() {
 		app.setInputFieldValues(values: ["2", "3"])
 		app.tabBars.buttons["Result"].tap()
-		XCTAssertTrue(app.staticTexts["2.0 × 3.0 = 6.0"].exists)
+		XCTAssertTrue(app.staticTexts["2 × 3 = 6"].exists)
 	}
 
 	func test_input_change() {
@@ -61,7 +61,7 @@ class ThreeViewChallengeUITests: XCTestCase {
 
 		// Check result page
 		app.tabBars.buttons["Result"].tap()
-		XCTAssertTrue(app.staticTexts["2.0 × 3.0 = 6.0"].exists)
+		XCTAssertTrue(app.staticTexts["2 × 3 = 6"].exists)
 	}
 
 	func test_lastEdited_change() {
@@ -79,7 +79,7 @@ class ThreeViewChallengeUITests: XCTestCase {
 
 		// Check result page
 		app.tabBars.buttons["Result"].tap()
-		XCTAssertTrue(app.staticTexts["2.0 × 3.0 = 6.0"].exists)
+		XCTAssertTrue(app.staticTexts["2 × 3 = 6"].exists)
 	}
 
 	func test_ui_incompletevalues() {
@@ -101,7 +101,7 @@ class ThreeViewChallengeUITests: XCTestCase {
 	func test_ui_valuesNotProvided_when_provideValue_andThenDeleteIt() {
 		app.setInputFieldValues(values: ["1", "2"])
 		app.tabBars.buttons["Result"].tap()
-		XCTAssertTrue(app.staticTexts["1.0 × 2.0 = 2.0"].exists)
+		XCTAssertTrue(app.staticTexts["1 × 2 = 2"].exists)
 
 		app.tabBars.buttons["Input 1"].tap()
 		app.firstInputTextField.tap()

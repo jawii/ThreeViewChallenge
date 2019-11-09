@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		558B1E652376F2BE0081E5DD /* NSAttributedString+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558B1E642376F2BE0081E5DD /* NSAttributedString+Ext.swift */; };
+		558B1E672376F8130081E5DD /* Double+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558B1E662376F8130081E5DD /* Double+Ext.swift */; };
 		55E8304E237313FD0063054C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E8304D237313FD0063054C /* AppDelegate.swift */; };
 		55E83050237313FD0063054C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E8304F237313FD0063054C /* SceneDelegate.swift */; };
 		55E83055237313FD0063054C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55E83053237313FD0063054C /* Main.storyboard */; };
@@ -44,6 +45,7 @@
 
 /* Begin PBXFileReference section */
 		558B1E642376F2BE0081E5DD /* NSAttributedString+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Ext.swift"; sourceTree = SOURCE_ROOT; };
+		558B1E662376F8130081E5DD /* Double+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Ext.swift"; sourceTree = "<group>"; };
 		55E8304A237313FD0063054C /* ThreeViewChallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ThreeViewChallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		55E8304D237313FD0063054C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		55E8304F237313FD0063054C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -96,6 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				558B1E642376F2BE0081E5DD /* NSAttributedString+Ext.swift */,
+				558B1E662376F8130081E5DD /* Double+Ext.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -131,8 +134,6 @@
 				558B1E632376F2A60081E5DD /* Extension */,
 				55E830C5237364F90063054C /* Utilities */,
 				55E830612373155A0063054C /* Protocols */,
-				55E83053237313FD0063054C /* Main.storyboard */,
-				55E83056237313FF0063054C /* Assets.xcassets */,
 				55E83058237313FF0063054C /* LaunchScreen.storyboard */,
 				55E8305B237313FF0063054C /* Info.plist */,
 			);
@@ -150,6 +151,8 @@
 		55E8306E237316FF0063054C /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				55E83053237313FD0063054C /* Main.storyboard */,
+				55E83056237313FF0063054C /* Assets.xcassets */,
 				55E830662373159C0063054C /* MainTabBarController.swift */,
 				55E8306F23731F230063054C /* InputVC.swift */,
 				55E8306C237316EC0063054C /* ResultVC.swift */,
@@ -362,6 +365,7 @@
 				55E83050237313FD0063054C /* SceneDelegate.swift in Sources */,
 				55E830642373155A0063054C /* StoryBoarded.swift in Sources */,
 				558B1E652376F2BE0081E5DD /* NSAttributedString+Ext.swift in Sources */,
+				558B1E672376F8130081E5DD /* Double+Ext.swift in Sources */,
 				55E830CB2373E4670063054C /* DynamicFonts.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

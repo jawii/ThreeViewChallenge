@@ -15,7 +15,9 @@ class InputVC: UIViewController, Storyboarded {
 
 	// MARK: Properties
 	var inputIndex: Int!
-	var values: [Double?] = []
+	var values: [Double?] = [] {
+		didSet { tableView.reloadData() }
+	}
 	weak var coordinator: InputCoordinator?
 
     override func viewDidLoad() {
@@ -24,15 +26,29 @@ class InputVC: UIViewController, Storyboarded {
 		tableView.register(InputViewCell.self, forCellReuseIdentifier: InputViewCell.reuseIdentifier)
 		tableView.delegate = self
 		tableView.dataSource = self
-		
-		// Dismiss keyboard when view is tapped
-//		let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-//		self.view.addGestureRecognizer(tapGesture)
+
+		let clearButton = UIBarButtonItem(title: "Clear all", style: .done, target: self, action: #selector(didTapClearButton))
+		navigationItem.leftBarButtonItem = clearButton
     }
+
+	@objc private func didTapClearButton() {
+		let alertVC = UIAlertController(title: "Clear all inputs", message: "", preferredStyle: .alert)
+
+		alertVC.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
+		alertVC.addAction(UIAlertAction(title: "Clear", style: .destructive, handler: { [weak self] (_) in
+			guard let self = self else { return }
+			self.values = Array(repeating: nil, count: self.values.count)
+			print(self.values)
+			self.coordinator? .didSet(values: self.values, forIndex: self.inputIndex)
+		}))
+
+		present(alertVC, animated: true, completion: nil)
+	}
 }
 
 extension InputVC: UITableViewDataSource, UITableViewDelegate {
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		print("Tableview reload")
 		return values.count
 	}
 
@@ -42,7 +58,9 @@ extension InputVC: UITableViewDataSource, UITableViewDelegate {
 		}
 
 		cell.delegate = self
-		cell.setupForInput(withInputOrder: indexPath.row, value: values[indexPath.row])
+		let value = values[indexPath.row]
+		print(value)
+		cell.setupForInput(withInputOrder: indexPath.row, value: value)
 		return cell
 	}
 }

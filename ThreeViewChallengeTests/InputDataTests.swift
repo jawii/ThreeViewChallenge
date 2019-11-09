@@ -53,4 +53,46 @@ class InputDataTests: XCTestCase {
 		sut = InputData(inputs: [[nil, nil], [nil, 4]], lastEditedIndex: 1)
 		XCTAssertTrue(resultText == inCompleteValuesText)
 	}
+
+	func test_result_value1() {
+		sut = InputData(inputs: [[2, 3]], lastEditedIndex: 0)
+		let value = resultText
+		let expectedValue = "2 × 3 = 6"
+		XCTAssertTrue(value == expectedValue)
+	}
+
+	func test_result_value2() {
+		sut = InputData(inputs: [[3, 2.0]], lastEditedIndex: 0)
+		let value = resultText
+		let expectedValue = "3 × 2 = 6"
+		XCTAssertTrue(value == expectedValue)
+	}
+
+	func test_result_value3() {
+		sut = InputData(inputs: [[3, 2.2]], lastEditedIndex: 0)
+		let value = resultText
+		let expectedValue = "3 × 2.2 = 6.6"
+		XCTAssertTrue(value == expectedValue, "Returned \(value)")
+	}
+
+	func test_result_value4() {
+		sut = InputData(inputs: [[3.123, 2.23]], lastEditedIndex: 0)
+		let value = resultText
+		let expectedValue = "3.123 × 2.23 = 6.96429"
+		XCTAssertTrue(value == expectedValue, "Returned \(value)")
+	}
+
+	func test_negative_value1() {
+		sut = InputData(inputs: [[-2, 1]], lastEditedIndex: 0)
+		let value = resultText
+		let expectedValue = "-2 × 1 = -2"
+		XCTAssertTrue(value == expectedValue, "Returned \(value)")
+	}
+
+	func test_negative_value2() {
+		sut = InputData(inputs: [[2, -3]], lastEditedIndex: 0)
+		let value = resultText
+		let expectedValue = "2 × (-3) = -6"
+		XCTAssertTrue(value == expectedValue, "Returned \(value)")
+	}
 }
