@@ -50,8 +50,8 @@ class InputVC: UIViewController, Storyboarded {
 		NSLayoutConstraint.activate([
 			stack.topAnchor.constraint(equalTo: margins.topAnchor, constant: 22),
 			stack.centerXAnchor.constraint(equalTo: margins.centerXAnchor),
-			stack.trailingAnchor.constraint(equalTo: margins.trailingAnchor, constant: -20),
-			stack.leadingAnchor.constraint(equalTo: margins.leadingAnchor, constant: 20)
+			stack.trailingAnchor.constraint(equalTo: margins.trailingAnchor, constant: -12),
+			stack.leadingAnchor.constraint(equalTo: margins.leadingAnchor, constant: 12)
 		])
 	}
 
@@ -66,7 +66,7 @@ class InputVC: UIViewController, Storyboarded {
 	// MARK: - Private methods
 
 	@objc private func dismissKeyboard() {
-		coordinator?.didSetInput(values: [firstInputView.getNewValue(), secondInputView.getNewValue()], atIndex: inputIndex)
+		coordinator?.didSet(values: [firstInputView.getNewValue(), secondInputView.getNewValue()], forIndex: inputIndex)
 		view.endEditing(true)
 	}
 

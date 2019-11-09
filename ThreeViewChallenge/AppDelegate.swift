@@ -16,6 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 		if CommandLine.arguments.contains("--uitesting") {
 			resetState()
+//			UIView.setAnimationsEnabled(false)
 		}
 
 		return true

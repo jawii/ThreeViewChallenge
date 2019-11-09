@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Keeps track of user inputted values and which values are last time touched
 struct InputData: Codable {
 
 	// MARK: - Properties

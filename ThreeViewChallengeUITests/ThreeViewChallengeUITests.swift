@@ -46,48 +46,25 @@ class ThreeViewChallengeUITests: XCTestCase {
 	}
 
 	func test_simpleInput() {
-		let firstTextField = app.firstInputTextField
-		let secondTextField = app.secondInputTextField
-
-		firstTextField.tap()
-		app.keys["2"].tap()
-		app.staticTexts["Confirm"].tap()
-
-		secondTextField.tap()
-        app.keys["3"].tap()
-		app.staticTexts["Confirm"].tap()
-
+		app.setInputFieldValues(values: ["2", "3"])
 		app.tabBars.buttons["Result"].tap()
-
 		XCTAssertTrue(app.staticTexts["2.0 × 3.0 = 6.0"].exists)
 	}
 
 	func test_input_change() {
 		// Go first screen and provide values
-		app.firstInputTextField.tap()
-		app.keys["2"].tap()
-		app.staticTexts["Confirm"].tap()
-
-		app.secondInputTextField.tap()
-        app.keys["3"].tap()
-		app.staticTexts["Confirm"].tap()
+		app.setInputFieldValues(values: ["1", "1"])
 
 		// Go second screen and provide values
 		app.tabBars.buttons["Input 2"].tap()
-		app.firstInputTextField.tap()
-		app.keys["1"].tap()
-		app.staticTexts["Confirm"].tap()
-
-		app.secondInputTextField.tap()
-        app.keys["8"].tap()
-		app.staticTexts["Confirm"].tap()
+		app.setInputFieldValues(values: ["2", "3"])
 
 		// Check result page
 		app.tabBars.buttons["Result"].tap()
-		XCTAssertTrue(app.staticTexts["1.0 × 8.0 = 8.0"].exists)
+		XCTAssertTrue(app.staticTexts["2.0 × 3.0 = 6.0"].exists)
 	}
 
-	func test_lastEdited1() {
+	func test_lastEdited_change() {
 		// Go first screen and provide values
 		app.setInputFieldValues(values: ["2", "3"])
 
@@ -98,7 +75,7 @@ class ThreeViewChallengeUITests: XCTestCase {
 		// Go first screen and touch values
 		app.tabBars.buttons["Input 1"].tap()
 		app.firstInputTextField.tap()
-		app.staticTexts["Confirm"].tap()
+		app.staticTexts["Confirm"].forceTapElement()
 
 		// Check result page
 		app.tabBars.buttons["Result"].tap()
@@ -108,7 +85,7 @@ class ThreeViewChallengeUITests: XCTestCase {
 	func test_ui_incompletevalues() {
 		app.firstInputTextField.tap()
 		app.keys["3"].tap()
-		app.staticTexts["Confirm"].tap()
+		app.staticTexts["Confirm"].forceTapElement()
 
 		app.tabBars.buttons["Result"].tap()
 		XCTAssertTrue(app.staticTexts["Incomplete values."].exists)
@@ -118,17 +95,6 @@ class ThreeViewChallengeUITests: XCTestCase {
 		app.tabBars.buttons["Result"].tap()
 		XCTAssertTrue(app.staticTexts["No Inputs Provided."].exists)
 	}
-
-	/*
-    func testLaunchPerformance() {
-        if #available(macOS 10.15, iOS 13.0, tvOS 13.0, *) {
-            // This measures how long it takes to launch your application.
-            measure(metrics: [XCTOSSignpostMetric.applicationLaunch]) {
-                XCUIApplication().launch()
-            }
-        }
-    }
-	*/
 }
 
 extension XCUIApplication {
@@ -154,10 +120,23 @@ extension XCUIApplication {
 	func setInputFieldValues(values: [String]) {
 		firstInputTextField.tap()
 		keys[values[0]].tap()
-		staticTexts["Confirm"].tap()
+		staticTexts["Confirm"].forceTapElement()
 
 		secondInputTextField.tap()
         keys[values[1]].tap()
-		staticTexts["Confirm"].tap()
+		staticTexts["Confirm"].forceTapElement()
 	}
+}
+
+extension XCUIElement {
+	// Ensure that hit happens.
+	// Use for cases when element.isHittable is false
+    func forceTapElement() {
+		if self.isHittable {
+            self.tap()
+		} else {
+			let coordinate: XCUICoordinate = self.coordinate(withNormalizedOffset: CGVector(dx: 0, dy: 0))
+            coordinate.tap()
+        }
+    }
 }

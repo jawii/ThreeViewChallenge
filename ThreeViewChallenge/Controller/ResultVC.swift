@@ -14,11 +14,13 @@ class ResultVC: UIViewController, Storyboarded {
 
 	@IBOutlet var infoLabel: UILabel! {
 		didSet {
+			infoLabel.adjustsFontForContentSizeCategory = true
 			infoLabel.font = DynamicFonts.scaledTitleFont
 		}
 	}
 	@IBOutlet var resultLabel: UILabel! {
 		didSet {
+			resultLabel.adjustsFontForContentSizeCategory = true 
 			resultLabel.font = DynamicFonts.scaledBoldFont
 			resultLabel.accessibilityIdentifier = "result label"
 		}
@@ -54,7 +56,7 @@ class ResultVC: UIViewController, Storyboarded {
 			return
 		}
 
-		infoLabel.text = "Inputs from \(inputData.lastEditedIndex! + 1)"
+		infoLabel.text = "Calculating result from Input \(inputData.lastEditedIndex! + 1)"
 		if !inputData.hasCompleteData {
 			resultLabel.text = "Incomplete values."
 			return

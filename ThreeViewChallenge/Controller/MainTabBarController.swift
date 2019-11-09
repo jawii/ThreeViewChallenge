@@ -9,15 +9,13 @@
 import UIKit
 
 protocol InputCoordinator: class {
-	func didSetInput(values: [Double?], atIndex index: Int)
+	func didSet(values: [Double?], forIndex index: Int)
 }
 
 class MainTabBarController: UITabBarController, InputCoordinator {
 
 	// MARK: - Properties
 	private var storage = InputStorage()
-	var firstVC: InputVC!
-	var secondVC: InputVC!
 
 	lazy var resultVC: ResultVC = {
 		let resultVC = ResultVC.instantiate()
@@ -31,31 +29,36 @@ class MainTabBarController: UITabBarController, InputCoordinator {
 	// MARK: - Initialization
 
     override func viewDidLoad() {
-        super.viewDidLoad()
+		super.viewDidLoad()
+
+		setupTabBars()
+		resultVC.inputData = storage.inputData
+	}
+
+	private func setupTabBars() {
 		// Set viewcontrollers inside navigationcontroller for the system provided title
 		let firstNav = UINavigationController()
-		firstVC = InputVC.makeInputVCForTabBar(inputIndex: 0)
+		let firstVC = InputVC.makeInputVCForTabBar(inputIndex: 0)
 		firstVC.coordinator = self
 		firstNav.viewControllers = [firstVC]
-		
+
 		let secondNav = UINavigationController()
-		secondVC = InputVC.makeInputVCForTabBar(inputIndex: 1)
+		let secondVC = InputVC.makeInputVCForTabBar(inputIndex: 1)
 		secondVC.coordinator = self
 		secondNav.viewControllers = [secondVC]
 
 		let resultNav = UINavigationController()
 		resultNav.viewControllers = [resultVC]
 
-		viewControllers = [firstNav, secondNav, resultNav]
-
 		firstVC.setValues(values: storage.values(forInputIndex: 0))
 		secondVC.setValues(values: storage.values(forInputIndex: 1))
-		resultVC.inputData = storage.inputData
+
+		viewControllers = [firstNav, secondNav, resultNav]
 	}
 
 	// MARK: - InputCoordinator - protocol
 
-	func didSetInput(values: [Double?], atIndex index: Int) {
+	func didSet(values: [Double?], forIndex index: Int) {
 		// Set new values to storage
 		storage.setValues(values, forIndex: index)
 		// Input data is value type so set the new values to outputvc

@@ -37,7 +37,7 @@ class InputStorage {
 		}
 	}
 
-	/// Save current inputData to userdefaults
+	/// Save current inputData to Userdefaults
 	private func saveValues() {
 		print("Saving values: \(inputData.inputs)")
 		let encoder = JSONEncoder()

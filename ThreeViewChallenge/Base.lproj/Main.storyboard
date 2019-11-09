@@ -22,7 +22,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="num-bJ-GCw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <view contentMode="scaleToFill" ambiguous="YES" id="XUS-f1-s33">
+                <view contentMode="scaleToFill" id="XUS-f1-s33">
                     <rect key="frame" x="0.0" y="0.0" width="420" height="50"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>

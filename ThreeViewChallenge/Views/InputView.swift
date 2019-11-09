@@ -18,6 +18,8 @@ class InputView: UIView {
 		infoLabel.translatesAutoresizingMaskIntoConstraints = false
 		infoLabel.textAlignment = .left
 		infoLabel.textColor = UIColor.systemGray2
+
+		infoLabel.adjustsFontForContentSizeCategory = true
 		infoLabel.font = DynamicFonts.scaledBaseFont
 
 		addSubview(infoLabel)
@@ -33,7 +35,11 @@ class InputView: UIView {
 		textField.keyboardType = .decimalPad
 		textField.textAlignment = .center
 		textField.placeholder = "Tap to set"
-		textField.font = DynamicFonts.scaledBoldFont
+
+		textField.adjustsFontForContentSizeCategory = true
+		textField.font = DynamicFonts.scaledBaseFont
+
+		textField.isAccessibilityElement = true
 
 		addSubview(textField)
 		return textField
@@ -59,18 +65,16 @@ class InputView: UIView {
 
 		infoLabelLeadingAnchor = infoLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor)
 		infoLabelLeadingAnchor.isActive = true
-
 		infoLabelCenterXAnchor = infoLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor)
+		infoLabelCenterXAnchor.isActive = false
 
 		// Let the textfield take the space
 		infoLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
 		infoLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
 
 		infoLabel.text = "VALUE \(orderNumber)"
-		textField.inputAccessoryView = toolBarView
-
-		textField.isAccessibilityElement = true 
 		textField.accessibilityIdentifier = "textfield \(orderNumber)"
+		textField.inputAccessoryView = toolBarView
 
 		textField.addTarget(self, action: #selector(textFieldEditingChanged), for: .editingDidBegin)
 		textField.addTarget(self, action: #selector(textFieldEditingChanged), for: .editingDidEnd)
@@ -83,13 +87,11 @@ class InputView: UIView {
 	// MARK: - Private methods
 
 	@objc private func textFieldEditingChanged() {
-
 		infoLabelLeadingAnchor.isActive = !infoLabelLeadingAnchor.isActive
 		infoLabelCenterXAnchor.isActive = !infoLabelCenterXAnchor.isActive
-		setNeedsUpdateConstraints()
 
 		UIView.animate(
-			withDuration: 1.0,
+			withDuration: 0.8,
 			delay: 0,
 			usingSpringWithDamping: 0.9,
 			initialSpringVelocity: 10.0,
