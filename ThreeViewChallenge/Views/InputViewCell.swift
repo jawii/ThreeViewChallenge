@@ -156,7 +156,7 @@ class InputViewCell: UITableViewCell {
 	@objc private func textFieldValueChanged() {
 		if let text = textField.text {
 			if text.isEmpty { return }
-
+			// Add colors
 			if text.convertedToDouble == nil {
 				textField.textColor = textFieldErrorTextColor
 			} else {

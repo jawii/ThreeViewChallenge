@@ -55,7 +55,7 @@ class InputVC: UIViewController, Storyboarded {
 		alertVC.addAction(UIAlertAction(title: "Clear", style: .destructive, handler: { [weak self] (_) in
 			guard let self = self else { return }
 			self.values = Array(repeating: nil, count: self.values.count)
-			self.coordinator? .didSet(values: self.values, forIndex: self.inputIndex)
+			self.didSuccesfullyEditValue()
 		}))
 		present(alertVC, animated: true, completion: nil)
 	}

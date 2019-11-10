@@ -29,7 +29,6 @@ class ThreeViewChallengeUITests: XCTestCase {
 
 	func test_ui_continuesSameView_whenPaused() {
 		// Activating takes some time so do the waiting
-
 		XCUIDevice.shared.press(.home)
 		XCUIApplication().activate()
 		XCTAssertTrue(app.waitForElementToAppear(app.firstScreen))
@@ -105,7 +104,7 @@ class ThreeViewChallengeUITests: XCTestCase {
 
 		app.tabBars.buttons["Input 1"].tap()
 		app.firstInputTextField.tap()
-		app.keys["Delete"].tap()
+		app.deleteButton.tap()
 
 		app.waitForElementToAppear(app.doneButton)
 		app.doneButton.tap()
@@ -168,7 +167,7 @@ class ThreeViewChallengeUITests: XCTestCase {
 		app.setInputFieldValues(values: ["3", "8"])
 
 		app.firstInputTextField.tap()
-		app.keys["Delete"].tap()
+		app.deleteButton.tap()
 
 		app.waitForElementToAppear(app.cancelButton)
 		app.cancelButton.tap()
@@ -208,6 +207,13 @@ extension XCUIApplication {
 
 	var doneButton: XCUIElement { return toolbars["Toolbar"].buttons["Done"] }
 	var cancelButton: XCUIElement { return toolbars["Toolbar"].buttons["Cancel"] }
+	var deleteButton: XCUIElement {
+		if UIDevice.current.userInterfaceIdiom == .pad {
+			return keys["delete"]
+		} else {
+			return keys["Delete"]
+		}
+	}
 
 	var firstScreen: XCUIElement { return tabBars.buttons["Input 1"] }
 	var secondScreen: XCUIElement { return tabBars.buttons["Input 2"] }

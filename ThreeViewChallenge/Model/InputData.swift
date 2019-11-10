@@ -43,7 +43,7 @@ struct InputData: Codable {
 
 		let values = inputs[lastEditedIndex!]
 
-		// Construct String
+		// Construct strings
 		let value1Attrs: [NSAttributedString.Key: Any] = [
 			NSAttributedString.Key.foregroundColor: UIColor.systemTeal,
 			NSAttributedString.Key.font: DynamicFonts.scaledTitleFont
@@ -68,6 +68,7 @@ struct InputData: Codable {
 	}
 
 	var result: InputResult {
+
 		let statusTextFontAttributes: [NSAttributedString.Key: Any] = [
 			NSAttributedString.Key.font: DynamicFonts.scaledBoldFont
 		]
