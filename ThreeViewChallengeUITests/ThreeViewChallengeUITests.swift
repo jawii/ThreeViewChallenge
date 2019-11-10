@@ -140,7 +140,7 @@ class ThreeViewChallengeUITests: XCTestCase {
 	func test_clearsAll_when_clearallbuttonPressed() {
 		app.setInputFieldValues(values: ["5", "4"])
 		app.buttons["Clear all"].tap()
-		app.alerts["Clear all inputs"].scrollViews.otherElements.buttons["Clear"].tap()
+		app.alerts["Clear all values?"].scrollViews.otherElements.buttons["Clear"].tap()
 
 		guard let value = app.firstInputTextField.value as? String else { fatalError() }
 		XCTAssert(value == "Tap to set", "Not clearing textfield is non number value is added: \(value)")

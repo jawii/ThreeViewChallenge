@@ -49,7 +49,7 @@ class InputVC: UIViewController, Storyboarded {
     }
 
 	@objc private func didTapClearButton() {
-		let alertVC = UIAlertController(title: "Clear all inputs", message: "", preferredStyle: .alert)
+		let alertVC = UIAlertController(title: "Clear all values?", message: "", preferredStyle: .alert)
 
 		alertVC.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
 		alertVC.addAction(UIAlertAction(title: "Clear", style: .destructive, handler: { [weak self] (_) in

@@ -36,27 +36,26 @@ class MainTabBarController: UITabBarController, InputCoordinator {
 	}
 
 	private func setupTabBar() {
-		// Set viewcontrollers inside navigationcontroller for the system provided title
-		let firstNav = UINavigationController()
-		let firstVC = InputVC.makeInputVCForTabBar(inputIndex: 0)
-		firstVC.coordinator = self
-		firstNav.viewControllers = [firstVC]
-
-		let secondNav = UINavigationController()
-		let secondVC = InputVC.makeInputVCForTabBar(inputIndex: 1)
-		secondVC.coordinator = self
-		secondNav.viewControllers = [secondVC]
-
 		let resultNav = UINavigationController()
 		resultNav.viewControllers = [resultVC]
 
-		firstVC.values = storage.values(forInputIndex: 0)
-		firstVC.isActiveInput = storage.getLastEditedInputIndex() == 0
+		var inputViewControllers = [UIViewController]()
 
-		secondVC.values = storage.values(forInputIndex: 1)
-		secondVC.isActiveInput = storage.getLastEditedInputIndex() == 1
+		for inputIndex in 0 ... storage.getInputAmount() - 1 {
+			// Insert inputvc inside navigation viewcontroller for system provided title
+			let navigationVC = UINavigationController()
+			let inputVC = InputVC.makeInputVCForTabBar(inputIndex: inputIndex)
 
-		viewControllers = [firstNav, secondNav, resultNav]
+			inputVC.coordinator = self
+			navigationVC.viewControllers = [inputVC]
+
+			inputVC.values = storage.values(forInputIndex: inputIndex)
+			inputVC.isActiveInput = storage.getLastEditedInputIndex() == inputIndex
+
+			inputViewControllers.append(navigationVC)
+		}
+
+		viewControllers = inputViewControllers + [resultNav]
 	}
 
 	// MARK: - InputCoordinator - protocol

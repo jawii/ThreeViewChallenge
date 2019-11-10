@@ -69,4 +69,10 @@ class InputStorage {
 	func getLastEditedInputIndex() -> Int? {
 		return inputData.lastEditedIndex
 	}
+
+	func getInputAmount() -> Int {
+		return inputData.inputs.count
+	}
+
+	
 }
